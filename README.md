@@ -35,8 +35,8 @@ O cabecalho do proprio `agenda.js` explica o formato. Nao e preciso tocar no
 
 | Secao | O que faz |
 |---|---|
-| Cortina | Ao abrir o site, duas folhas pretas cobrem tudo e o logo do Nola acende no meio como um neon ligando; um fio magenta acende na juncao e as folhas correm para os lados (2 segundos). Pedido dela, "igual o da AMGlobal mas do Nola". Com movimento reduzido, nasce aberta |
-| Abertura | Um SLIDE de quatro fotos da casa em rodizio (8s cada, aproximacao lenta, um banho de cor neon diferente em cada uma, linhas finas de tela antiga por cima), a frase da casa como titulo ("A balada mais psicodelica de Sao Paulo", com "psicodelica" acendendo em neon verde e dando um lampejo a cada troca), os dias, dois botoes (lista VIP no WhatsApp e agenda), a barra de quatro tracos que troca a foto e mostra o tempo dela, uma legenda que muda com a foto e, no computador, um selo redondo girando ("Lista VIP, Sex e Sab, 22h as 5h"). Deitadas no computador, em pe no celular. Ela recusou um NOLA gigante em neon: o nome ja esta no logo do cabecalho |
+| Cortina | Ao abrir o site, duas folhas violeta cobrem tudo e o logo branco do Nola acende no meio como roupa branca sob luz negra (brilho lilas, piscando ate estabilizar); um fio verde-acido acende na juncao e as folhas correm para os lados (2 segundos). Pedido dela, "igual o da AMGlobal mas do Nola". Com movimento reduzido, nasce aberta |
+| Abertura | Um SLIDE de quatro fotos da casa em rodizio (8s cada, aproximacao lenta, um banho de tinta fluorescente diferente em cada uma), o veu violeta com duas lampadas de luz negra pulsando, a frase da casa como titulo ("A balada mais psicodelica de Sao Paulo", com "psicodelica" em tinta verde-acido dando um lampejo a cada troca), os dias, dois botoes (lista VIP no WhatsApp e agenda), a barra de quatro tracos que troca a foto e mostra o tempo dela, uma legenda que muda com a foto e, no computador, um selo redondo girando ("Lista VIP, Sex e Sab, 22h as 5h"). Deitadas no computador, em pe no celular. Ela recusou um NOLA gigante: o nome ja esta no logo do cabecalho |
 | Faixa | Letreiro rolante com o que tem na casa |
 | 01 Agenda | Um cartaz por festa, a partir de `agenda.js` |
 | 02 O Nola | A historia em tres tempos (2013, 2023, hoje) e a fachada antiga |
@@ -46,21 +46,33 @@ O cabecalho do proprio `agenda.js` explica o formato. Nao e preciso tocar no
 | 06 Como chegar | Endereco, dias e horario, contato, Waze e Google Maps, a fachada a noite |
 | Rodape | Redes, contato e credito da ereio |
 
-## A pegada: underground neon
+## A pegada: luz negra
 
-- **Fundo preto** (`#060608`), letra de rua grande (Anton), texto em Space
-  Grotesk, rotulos e botoes em Press Start 2P (fonte de fliperama, a unica
-  coisa boa do site antigo).
-- **Neon de verdade**: magenta `#FF2BD6`, verde-limao `#39FF14` e ciano
-  `#00E5FF`, sempre como LUZ (text-shadow e box-shadow em camadas), nunca como
-  cor chapada. Os botoes sao borda neon que acende ao tocar.
-- **Grao** por cima de tudo (SVG de ruido em `mix-blend-mode: soft-light`,
-  7% de opacidade) e as pichacoes do Nola ("This is Nola", "nola bar") como
-  carimbos tortos.
-- **Movimento com proposito**: a palavra "psicodelica" pisca e estabiliza como
-  neon ligando (uma vez so), os objetos 3D do Nola flutuam devagar, a faixa
-  roda, os blocos sobem ao entrar na tela. Com `prefers-reduced-motion`, nada
-  se mexe.
+Em 05/10/2026 ela achou a primeira versao (preto, neon, objetos 3D e
+pichacoes do site antigo) "muito igual ao que esta hoje". A resposta foi a
+luz negra: o Nola por dentro e grafite fluorescente sob UV, e o site faz o
+mesmo. Saiu tudo o que vinha do Wix (os objetos 3D, as pichacoes-carimbo e a
+fonte de fliperama); ficaram a cortina e o slide, redesenhados.
+
+- **Fundo violeta quase preto** (`#0B0614`, `#130A24`, `#1B1033`), nunca
+  preto chapado, e o branco puxando para o lilas (`#EEE6FF`), como roupa
+  branca sob luz negra.
+- **Quatro tintas fluorescentes**: verde-acido `#C8FF2E`, laranja `#FF6B1A`,
+  rosa `#FF3FA4` e ciano `#28F0FF`, como COR SOLIDA com halo (text-shadow e
+  box-shadow suaves), e nao tubo de neon com nucleo branco. Os botoes sao
+  blocos de tinta (verde-acido por padrao, rosa e ciano nas variantes).
+- **Letra**: Anton enorme nos titulos; Barlow Condensed (600/700, espacada,
+  caixa-alta) em rotulos, menu, botoes e legendas; Space Grotesk no texto. O
+  rotulo de secao leva um traco de tinta inclinado na frente.
+- **Textura**: a propria parede grafitada do Nola (`noite-03.webp`) afogada
+  no violeta atras da secao O Nola; duas "lampadas" de luz negra (manchas
+  borradas, verde-acido e rosa) pulsando devagar atras da abertura; grao por
+  cima de tudo (8%). Na faixa rolante, metade das palavras e cheia e metade
+  so o contorno.
+- **Movimento com proposito**: a palavra "psicodelica" pisca e estabiliza
+  como a luz ligando (uma vez so), as lampadas pulsam, a faixa roda, o selo
+  gira, os blocos sobem ao entrar na tela. Com `prefers-reduced-motion`,
+  nada se mexe.
 - **Celular primeiro**: cada bloco foi desenhado em 390px e aberto depois para
   o computador. Menu em tela cheia no celular, com o logo por cima e, no pe, o
   botao da lista VIP (que sai do cabecalho) e o horario; cabecalho transparente
@@ -81,8 +93,8 @@ Nola), baixadas no original em 05/10/2026 e convertidas para WebP:
 | `multidao-pb.webp` | multidao em preto e branco, textura de fundo da secao O Nola |
 | `fachada-antiga.webp` / `fachada-noite.webp` | a fachada dos primeiros anos e a fachada a noite com a fila |
 | `noite-01` a `noite-12` | fotos das noites, para o mural |
-| `globo-anel`, `globo-prata`, `cubo`, `anel` | os objetos 3D do site antigo, com transparencia |
-| `tag-this-is-nola`, `tag-nola-bar` | as pichacoes |
+| `globo-anel`, `globo-prata`, `cubo`, `anel` | os objetos 3D do site antigo; desde 05/10/2026 NAO aparecem no site (eram a cara do Wix), ficam na pasta por enquanto |
+| `tag-this-is-nola`, `tag-nola-bar` | as pichacoes; idem, fora do site desde 05/10/2026 |
 | `logo-nola.png` | o logo, 450x221, como estava no site antigo |
 
 **Trocar pelas boas quando chegarem**: fotos em alta das noites e da casa, o

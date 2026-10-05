@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nola Bar | Balada em Vila Madalena, São Paulo</title>
 <meta name="description" content="Nola Bar: a balada mais psicodélica de São Paulo. Trap, funk e rap em duas pistas na Vila Madalena, desde 2013. Sextas, sábados e vésperas de feriado, das 22h às 5h. Lista VIP, ingressos e aniversário.">
-<meta name="theme-color" content="#060608">
+<meta name="theme-color" content="#0B0614">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Nola Bar | A balada mais psicodélica de São Paulo">
@@ -14,18 +14,22 @@
 <meta property="og:locale" content="pt_BR">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Press+Start+2P&family=Space+Grotesk:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap">
 <!-- ===========================================================================
      NOLA BAR -- site novo, feito pela ereio em outubro de 2026 no lugar do Wix.
 
      UM ARQUIVO SO: HTML, CSS e script aqui dentro. A agenda das festas mora em
      agenda.js, que e a unica coisa que muda toda semana (ver o README).
 
-     A PEGADA: underground neon. Fundo preto, letra de rua grande (Anton),
-     neon em magenta, verde-limao e ciano com luz de verdade (text-shadow em
-     camadas, nao cor chapada), grao por cima de tudo, pichacao como detalhe e
-     botoes em fonte de fliperama (Press Start 2P), que era a unica coisa boa
-     do site antigo.
+     A PEGADA: luz negra (05/10/2026). O Nola por dentro e grafite
+     fluorescente sob luz negra, e o site faz o mesmo: fundo violeta quase
+     preto, branco que puxa para o lilas, e quatro tintas fluorescentes
+     (verde-acido, laranja, rosa, ciano) como cor solida com halo, nao tubo
+     de neon. Letra condensada enorme (Anton), rotulos e botoes em Barlow
+     Condensed, a propria parede grafitada do Nola como textura e grao por
+     cima de tudo. Saiu tudo o que vinha do site Wix: os objetos 3D, as
+     pichacoes-carimbo e a fonte de fliperama. Ela achou a primeira versao
+     "muito igual ao que esta hoje"; esta e a resposta.
 
      CELULAR PRIMEIRO: todo bloco foi desenhado para 390px e depois aberto
      para o computador. Nada vaza de lado; o cabecalho e transparente sobre a
@@ -35,19 +39,31 @@
      (sao do proprio Nola). Trocam-se pelas boas quando chegarem. Ver README.
      =========================================================================== -->
 <style>
+  /* ======================================================================
+     LUZ NEGRA. O Nola por dentro e grafite fluorescente sob luz negra: as
+     paredes somem no violeta e a tinta acende. O site faz o mesmo. Fundo
+     violeta quase preto (nao preto chapado), branco que puxa para o lilas
+     (como roupa branca sob UV), e quatro tintas fluorescentes: verde-acido,
+     laranja, rosa e ciano. A tinta e cor solida com um halo (bloom), nao
+     tubo de neon com nucleo branco. Letra condensada enorme (Anton) e
+     rotulos em Barlow Condensed. Nada de objeto 3D, pichacao-carimbo ou
+     fonte de fliperama: isso era o site antigo.
+     ====================================================================== */
   :root {
-    --preto: #060608;
-    --preto-2: #0E0E12;
-    --preto-3: #16161C;
-    --branco: #F4F1F8;
-    --cinza: #A7A3B2;
-    --linha: rgba(244, 241, 248, 0.14);
-    --magenta: #FF2BD6;
-    --verde: #39FF14;
-    --ciano: #00E5FF;
-    --roxo: #B322B3;
+    --uv: #0B0614;
+    --uv-2: #130A24;
+    --uv-3: #1B1033;
+    --branco: #EEE6FF;
+    --cinza: #A99ACB;
+    --linha: rgba(238, 230, 255, 0.14);
+    --acido: #C8FF2E;
+    --laranja: #FF6B1A;
+    --rosa: #FF3FA4;
+    --ciano: #28F0FF;
+    --amarelo: #F6FF5A;
+    --lilas: #8E5CFF;
     --display: 'Anton', Impact, 'Arial Narrow', sans-serif;
-    --pixel: 'Press Start 2P', 'Courier New', monospace;
+    --condensada: 'Barlow Condensed', 'Arial Narrow', sans-serif;
     --texto: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
     --margem: clamp(20px, 5vw, 96px);
     --secao: clamp(72px, 12vh, 150px);
@@ -58,7 +74,7 @@
   html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   body {
     margin: 0;
-    background: var(--preto);
+    background: var(--uv);
     color: var(--branco);
     font-family: var(--texto);
     font-size: 17px;
@@ -66,6 +82,7 @@
     overflow-x: hidden;
   }
   body.travado { overflow: hidden; }
+  ::selection { background: var(--acido); color: var(--uv); }
   /* height: auto, senao o atributo height da tag vale como altura fixa e a
      figura sai esticada quando a largura e 100% */
   img { display: block; max-width: 100%; height: auto; }
@@ -76,84 +93,92 @@
   p { margin: 0; }
   button { font: inherit; color: inherit; }
 
-  .pular { position: absolute; left: -999px; top: 12px; z-index: 300; padding: 12px 16px; background: var(--verde); color: var(--preto); font-family: var(--pixel); font-size: 11px; }
+  /* a tinta: cor solida com halo. Uma classe por cor, para texto. */
+  .tinta-acido { color: var(--acido); text-shadow: 0 0 18px rgba(200, 255, 46, 0.55); }
+  .tinta-rosa { color: var(--rosa); text-shadow: 0 0 18px rgba(255, 63, 164, 0.55); }
+  .tinta-ciano { color: var(--ciano); text-shadow: 0 0 18px rgba(40, 240, 255, 0.55); }
+  .tinta-laranja { color: var(--laranja); text-shadow: 0 0 18px rgba(255, 107, 26, 0.55); }
+
+  .pular { position: absolute; left: -999px; top: 12px; z-index: 300; padding: 12px 16px; background: var(--acido); color: var(--uv); font-family: var(--condensada); font-weight: 700; font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; }
   .pular:focus { left: 12px; }
 
-  /* ---- A CORTINA: o logo do Nola acende em neon e as duas folhas abrem ----
-     Pedido dela: abrir com o logo, como no AM Global. Duas folhas pretas
-     cobrem o site; o logo acende no meio como um neon ligando (pisca e
-     estabiliza, com o brilho magenta crescendo); um fio magenta acende na
-     juncao; e as folhas correm para os lados, deixando o site aparecer.
+  /* ---- A CORTINA: o logo acende sob luz negra e as duas folhas abrem ----
+     Duas folhas violeta cobrem o site; o logo branco acende como roupa
+     branca sob UV (brilho lilas-azulado, piscando ate estabilizar); um fio
+     de tinta verde-acido acende na juncao; e as folhas correm para os lados.
      Com movimento reduzido, a cortina ja nasce aberta. */
   .cortina { position: fixed; inset: 0; z-index: 250; display: grid; place-items: center; overflow: hidden; }
   .cortina.saiu { pointer-events: none; visibility: hidden; transition: visibility 0s linear 1.4s; }
-  .cortina-folha { position: absolute; top: 0; bottom: 0; width: 50.5%; background: var(--preto); transition: transform 1.3s cubic-bezier(0.76, 0, 0.24, 1); }
+  /* a luz negra da cortina e UMA mancha lilas sobre as duas folhas (z 1, abaixo
+     do logo): posta em cada folha, o degrade nao casava e aparecia uma emenda */
+  .cortina::before { content: ''; position: absolute; inset: 0; z-index: 1; background: radial-gradient(ellipse at 50% 50%, rgba(142, 92, 255, 0.22), transparent 60%); pointer-events: none; transition: opacity 0.6s var(--curva); }
+  .cortina.saiu::before { opacity: 0; }
+  .cortina-folha { position: absolute; top: 0; bottom: 0; width: 50.5%; background: var(--uv); transition: transform 1.3s cubic-bezier(0.76, 0, 0.24, 1); }
   .cortina-folha--esq { left: 0; }
   .cortina-folha--dir { right: 0; }
   .cortina.saiu .cortina-folha--esq { transform: translateX(-100%); }
   .cortina.saiu .cortina-folha--dir { transform: translateX(100%); }
-  .cortina-fio { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; margin-left: -1px; background: var(--magenta); box-shadow: 0 0 12px var(--magenta), 0 0 32px rgba(255, 43, 214, 0.7); opacity: 0; transform: scaleY(0); transition: opacity 0.4s var(--curva), transform 0.7s var(--curva); }
+  .cortina-fio { position: absolute; top: 0; bottom: 0; left: 50%; width: 3px; margin-left: -1.5px; background: var(--acido); box-shadow: 0 0 14px var(--acido), 0 0 40px rgba(200, 255, 46, 0.6); opacity: 0; transform: scaleY(0); transition: opacity 0.4s var(--curva), transform 0.7s var(--curva); }
   .cortina.abrindo .cortina-fio { opacity: 1; transform: scaleY(1); }
   .cortina.saiu .cortina-fio { opacity: 0; transition-duration: 0.3s; }
   .cortina img { position: relative; z-index: 2; width: clamp(180px, 26vw, 320px); height: auto; opacity: 0; animation: acender 1.4s steps(1, end) 0.2s forwards; transition: opacity 0.5s var(--curva), transform 0.8s var(--curva); }
   .cortina.saiu img { opacity: 0; transform: scale(0.94); }
   @keyframes acender {
     0% { opacity: 0.1; filter: none; }
-    8% { opacity: 0.9; filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6)); }
+    8% { opacity: 0.9; filter: drop-shadow(0 0 6px rgba(184, 166, 255, 0.7)); }
     12% { opacity: 0.15; filter: none; }
-    18% { opacity: 1; filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.7)) drop-shadow(0 0 22px var(--magenta)); }
-    26% { opacity: 0.35; filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.4)); }
-    32% { opacity: 1; filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 30px var(--magenta)); }
-    60% { opacity: 1; filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 34px var(--magenta)) drop-shadow(0 0 70px rgba(255, 43, 214, 0.6)); }
+    18% { opacity: 1; filter: drop-shadow(0 0 8px rgba(184, 166, 255, 0.8)) drop-shadow(0 0 22px var(--lilas)); }
+    26% { opacity: 0.35; filter: drop-shadow(0 0 4px rgba(184, 166, 255, 0.4)); }
+    32% { opacity: 1; filter: drop-shadow(0 0 10px rgba(184, 166, 255, 0.9)) drop-shadow(0 0 30px var(--lilas)); }
+    60% { opacity: 1; filter: drop-shadow(0 0 10px rgba(184, 166, 255, 0.9)) drop-shadow(0 0 34px var(--lilas)) drop-shadow(0 0 70px rgba(142, 92, 255, 0.6)); }
     64% { opacity: 0.6; }
-    68%, 100% { opacity: 1; filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 34px var(--magenta)) drop-shadow(0 0 70px rgba(255, 43, 214, 0.6)); }
+    68%, 100% { opacity: 1; filter: drop-shadow(0 0 10px rgba(184, 166, 255, 0.9)) drop-shadow(0 0 34px var(--lilas)) drop-shadow(0 0 70px rgba(142, 92, 255, 0.6)); }
   }
 
-  /* ---- o neon: luz em camadas, nao cor ---- */
-  .neon { color: #FFFFFF; text-shadow: 0 0 6px #FFFFFF, 0 0 18px var(--magenta), 0 0 42px var(--magenta), 0 0 90px rgba(255, 43, 214, 0.6); }
-  .neon--verde { text-shadow: 0 0 6px #FFFFFF, 0 0 16px var(--verde), 0 0 40px var(--verde), 0 0 80px rgba(57, 255, 20, 0.5); }
-  .neon--ciano { text-shadow: 0 0 6px #FFFFFF, 0 0 16px var(--ciano), 0 0 40px var(--ciano), 0 0 80px rgba(0, 229, 255, 0.5); }
-
-  /* ---- rotulo pequeno em fonte de fliperama ---- */
+  /* ---- rotulo: condensado, espacado, com um traco de tinta na frente ---- */
   .rotulo {
-    display: inline-block;
-    font-family: var(--pixel);
-    font-size: 10px;
-    line-height: 1.6;
-    letter-spacing: 0.06em;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--condensada);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.4;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--verde);
+    color: var(--acido);
   }
+  .rotulo::before { content: ''; width: 28px; height: 6px; background: currentColor; transform: skewX(-18deg); box-shadow: 0 0 12px currentColor; }
 
-  /* ---- botoes: borda neon, fonte de fliperama, acende ao tocar ---- */
+  /* ---- botoes: tinta solida com halo, letra condensada ---- */
   .botao {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    min-height: 48px;
-    padding: 14px 22px;
-    font-family: var(--pixel);
-    font-size: 11px;
-    line-height: 1.4;
-    letter-spacing: 0.04em;
+    min-height: 50px;
+    padding: 14px 24px;
+    font-family: var(--condensada);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.2;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     text-decoration: none;
     text-align: center;
-    color: var(--verde);
-    background: rgba(6, 6, 8, 0.55);
-    border: 2px solid currentColor;
-    border-radius: 2px;
-    box-shadow: 0 0 14px rgba(57, 255, 20, 0.35), inset 0 0 14px rgba(57, 255, 20, 0.12);
+    color: var(--uv);
+    background: var(--acido);
+    border: 0;
+    box-shadow: 0 0 22px rgba(200, 255, 46, 0.35);
     cursor: pointer;
     transition: background 0.25s var(--curva), color 0.25s var(--curva), box-shadow 0.25s var(--curva), transform 0.25s var(--curva);
   }
-  .botao:hover, .botao:focus-visible { background: var(--verde); color: var(--preto); box-shadow: 0 0 28px rgba(57, 255, 20, 0.7); transform: translateY(-1px); outline: none; }
-  .botao--magenta { color: var(--magenta); box-shadow: 0 0 14px rgba(255, 43, 214, 0.35), inset 0 0 14px rgba(255, 43, 214, 0.12); }
-  .botao--magenta:hover, .botao--magenta:focus-visible { background: var(--magenta); color: var(--preto); box-shadow: 0 0 28px rgba(255, 43, 214, 0.7); }
-  .botao--ciano { color: var(--ciano); box-shadow: 0 0 14px rgba(0, 229, 255, 0.35), inset 0 0 14px rgba(0, 229, 255, 0.12); }
-  .botao--ciano:hover, .botao--ciano:focus-visible { background: var(--ciano); color: var(--preto); box-shadow: 0 0 28px rgba(0, 229, 255, 0.7); }
-  .botao--apagado { color: var(--cinza); box-shadow: none; cursor: default; pointer-events: none; }
+  .botao:hover, .botao:focus-visible { background: var(--amarelo); box-shadow: 0 0 36px rgba(246, 255, 90, 0.6); transform: translateY(-2px); outline: none; }
+  .botao--magenta { background: var(--rosa); box-shadow: 0 0 22px rgba(255, 63, 164, 0.35); }
+  .botao--magenta:hover, .botao--magenta:focus-visible { background: #FF6BB9; box-shadow: 0 0 36px rgba(255, 63, 164, 0.6); }
+  .botao--ciano { background: var(--ciano); box-shadow: 0 0 22px rgba(40, 240, 255, 0.35); }
+  .botao--ciano:hover, .botao--ciano:focus-visible { background: #7AF6FF; box-shadow: 0 0 36px rgba(40, 240, 255, 0.6); }
+  .botao--apagado { color: var(--cinza); background: transparent; border: 1px solid var(--linha); box-shadow: none; cursor: default; pointer-events: none; }
 
   /* ---- cabecalho fixo: transparente sobre a foto, escurece ao rolar ---- */
   .topo {
@@ -168,24 +193,25 @@
     transition: background 0.4s var(--curva), padding 0.4s var(--curva), border-color 0.4s var(--curva);
     border-bottom: 1px solid transparent;
   }
-  .topo.encolhido { background: rgba(6, 6, 8, 0.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom-color: var(--linha); padding-top: 10px; padding-bottom: 10px; }
+  .topo.encolhido { background: rgba(11, 6, 20, 0.84); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom-color: var(--linha); padding-top: 10px; padding-bottom: 10px; }
   .marca { display: block; flex: none; }
-  .marca img { height: 44px; width: auto; filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.35)); transition: height 0.4s var(--curva); }
+  .marca img { height: 44px; width: auto; filter: drop-shadow(0 0 10px rgba(184, 166, 255, 0.45)); transition: height 0.4s var(--curva); }
   .topo.encolhido .marca img { height: 36px; }
   .menu { display: flex; align-items: center; gap: clamp(18px, 2.2vw, 34px); }
   .menu a {
     position: relative;
-    font-family: var(--pixel);
-    font-size: 10px;
-    letter-spacing: 0.04em;
+    font-family: var(--condensada);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     text-decoration: none;
     color: var(--branco);
-    opacity: 0.78;
+    opacity: 0.8;
     transition: opacity 0.3s, color 0.3s;
   }
-  .menu a:hover, .menu a.ativo { opacity: 1; color: var(--verde); text-shadow: 0 0 10px rgba(57, 255, 20, 0.7); }
-  .topo-vip { padding: 10px 14px; min-height: 40px; font-size: 10px; }
+  .menu a:hover, .menu a.ativo { opacity: 1; color: var(--acido); text-shadow: 0 0 12px rgba(200, 255, 46, 0.6); }
+  .topo-vip { padding: 10px 16px; min-height: 40px; font-size: 14px; }
   .menu-pe { display: none; }   /* o pe do menu (lista VIP e horario) so existe no celular */
   .menu-abrir {
     display: none;
@@ -198,12 +224,12 @@
     color: var(--branco);
     cursor: pointer;
   }
-  .menu-abrir span { display: block; width: 26px; height: 2px; margin: 0 auto; background: currentColor; box-shadow: 0 0 8px rgba(255, 255, 255, 0.6); transition: transform 0.4s var(--curva); }
+  .menu-abrir span { display: block; width: 26px; height: 2px; margin: 0 auto; background: currentColor; box-shadow: 0 0 8px rgba(238, 230, 255, 0.6); transition: transform 0.4s var(--curva); }
   .menu-abrir span + span { margin-top: 8px; }
   .menu-abrir[aria-expanded="true"] span:first-child { transform: translateY(5px) rotate(45deg); }
   .menu-abrir[aria-expanded="true"] span:last-child { transform: translateY(-5px) rotate(-45deg); }
 
-  /* ---- abertura: a pista atras, NOLA em neon na frente ---- */
+  /* ---- abertura: as fotos da casa atras, a frase da casa na frente ---- */
   .abertura {
     position: relative;
     min-height: 100svh;
@@ -216,62 +242,70 @@
     isolation: isolate;
   }
   /* o slide: as fotos empilhadas, a que esta no ar aparece e se aproxima
-     devagar; cada uma traz um banho de cor neon (data-tom) */
-  .abertura-slides { position: absolute; inset: 0; z-index: -2; background: var(--preto-2); }
+     devagar; cada uma traz um banho de tinta fluorescente (data-tom) */
+  .abertura-slides { position: absolute; inset: 0; z-index: -2; background: var(--uv-2); }
   .slide-foto { position: absolute; inset: 0; opacity: 0; transition: opacity 1.6s var(--curva); }
   .slide-foto.ativa { opacity: 1; }
   .slide-foto picture { display: block; width: 100%; height: 100%; }
-  .slide-foto img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; filter: saturate(1.15) contrast(1.05); transform: scale(1.1); }
+  .slide-foto img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; filter: saturate(1.2) contrast(1.05) hue-rotate(-6deg); transform: scale(1.1); }
   .slide-foto.ativa img { animation: aproximar 8.4s linear forwards; }
   @keyframes aproximar { from { transform: scale(1.1); } to { transform: scale(1); } }
-  .slide-foto::after { content: ''; position: absolute; inset: 0; mix-blend-mode: screen; opacity: 0.7; pointer-events: none; }
-  .slide-foto[data-tom="magenta"]::after { background: radial-gradient(ellipse at 20% 85%, rgba(255, 43, 214, 0.5), transparent 58%); }
-  .slide-foto[data-tom="verde"]::after { background: radial-gradient(ellipse at 80% 20%, rgba(57, 255, 20, 0.32), transparent 55%); }
-  .slide-foto[data-tom="ciano"]::after { background: radial-gradient(ellipse at 75% 75%, rgba(0, 229, 255, 0.4), transparent 55%); }
+  .slide-foto::after { content: ''; position: absolute; inset: 0; mix-blend-mode: screen; opacity: 0.75; pointer-events: none; }
+  .slide-foto[data-tom="magenta"]::after { background: radial-gradient(ellipse at 20% 85%, rgba(255, 63, 164, 0.55), transparent 58%); }
+  .slide-foto[data-tom="verde"]::after { background: radial-gradient(ellipse at 80% 20%, rgba(200, 255, 46, 0.4), transparent 55%); }
+  .slide-foto[data-tom="ciano"]::after { background: radial-gradient(ellipse at 75% 75%, rgba(40, 240, 255, 0.45), transparent 55%); }
+  /* o veu violeta, e por cima dele duas lampadas de luz negra: manchas de
+     tinta borradas que pulsam devagar, uma verde-acido e uma rosa */
   .abertura-veu {
     position: absolute; inset: 0; z-index: -1;
-    background: linear-gradient(to top, rgba(6, 6, 8, 0.96) 0%, rgba(6, 6, 8, 0.62) 38%, rgba(6, 6, 8, 0.22) 70%, rgba(6, 6, 8, 0.55) 100%);
+    background:
+      radial-gradient(ellipse at 72% 28%, rgba(142, 92, 255, 0.32), transparent 58%),
+      linear-gradient(to top, rgba(11, 6, 20, 0.97) 0%, rgba(11, 6, 20, 0.66) 38%, rgba(11, 6, 20, 0.26) 70%, rgba(11, 6, 20, 0.6) 100%);
   }
-  /* linhas finas de tela antiga, bem abertas: textura, nao efeito */
-  .abertura-linhas { position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0.35; background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 4px); mix-blend-mode: overlay; }
+  .abertura-veu::before, .abertura-veu::after { content: ''; position: absolute; border-radius: 50%; filter: blur(70px); mix-blend-mode: screen; pointer-events: none; animation: pulsar 7s ease-in-out infinite; }
+  .abertura-veu::before { right: -8%; top: 8%; width: 46vw; height: 46vw; max-width: 620px; max-height: 620px; background: rgba(200, 255, 46, 0.26); }
+  .abertura-veu::after { left: -12%; bottom: -10%; width: 52vw; height: 52vw; max-width: 700px; max-height: 700px; background: rgba(255, 63, 164, 0.24); animation-delay: -3.5s; }
+  @keyframes pulsar { 0%, 100% { opacity: 0.75; transform: scale(1); } 50% { opacity: 1; transform: scale(1.08); } }
 
   /* a barra de troca: quatro pedacos de fio que se enchem no tempo da foto; a
-     legenda fica logo ao lado, a esquerda (no canto direito ela caia em cima
-     da pichacao) */
+     legenda fica logo ao lado, a esquerda */
   .abertura-controle { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-start; gap: 10px 24px; margin-top: clamp(22px, 3.4vh, 36px); }
   .marcadores { display: flex; align-items: center; gap: 8px; }
   .marcador { position: relative; display: block; width: clamp(44px, 6vw, 72px); height: 44px; padding: 0; background: none; border: 0; cursor: pointer; }
-  .marcador::before, .marcador::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 3px; margin-top: -1.5px; }
-  .marcador::before { background: rgba(244, 241, 248, 0.28); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); }
-  .marcador::after { background: var(--verde); box-shadow: 0 0 10px rgba(57, 255, 20, 0.8); transform: scaleX(0); transform-origin: left; transition: transform 0.5s var(--curva); }
+  .marcador::before, .marcador::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 4px; margin-top: -2px; }
+  .marcador::before { background: rgba(238, 230, 255, 0.25); }
+  .marcador::after { background: var(--acido); box-shadow: 0 0 12px rgba(200, 255, 46, 0.8); transform: scaleX(0); transform-origin: left; transition: transform 0.5s var(--curva); }
   .marcador.andada::after { transform: scaleX(1); }
   .marcador.ativo::after { animation: encher 8s linear forwards; }
-  .marcador:focus-visible { outline: 1px solid var(--verde); outline-offset: 4px; }
+  .marcador:focus-visible { outline: 1px solid var(--acido); outline-offset: 4px; }
   @keyframes encher { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-  .slide-legenda { font-family: var(--pixel); font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ciano); text-shadow: 0 0 10px rgba(0, 229, 255, 0.7); transition: opacity 0.4s var(--curva); }
+  .slide-legenda { font-family: var(--condensada); font-weight: 600; font-size: 15px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ciano); text-shadow: 0 0 12px rgba(40, 240, 255, 0.6); transition: opacity 0.4s var(--curva); }
   .slide-legenda.trocando { opacity: 0; }
 
-  /* o selo que gira, no canto de baixo a direita */
-  .selo { position: absolute; right: clamp(24px, 6vw, 110px); bottom: clamp(120px, 20vh, 220px); width: clamp(120px, 11vw, 160px); aspect-ratio: 1; z-index: 1; pointer-events: none; }
+  /* o selo que gira, no canto de baixo a direita: tinta verde-acido, letra condensada */
+  .selo { position: absolute; right: clamp(24px, 6vw, 110px); bottom: clamp(120px, 20vh, 220px); width: clamp(130px, 12vw, 180px); aspect-ratio: 1; z-index: 1; pointer-events: none; }
   .selo svg { width: 100%; height: 100%; animation: girar 26s linear infinite; }
-  .selo text { font-family: var(--pixel); font-size: 12.5px; letter-spacing: 0.14em; text-transform: uppercase; fill: var(--verde); }
-  .selo-ponto { position: absolute; left: 50%; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: var(--magenta); box-shadow: 0 0 14px var(--magenta), 0 0 34px rgba(255, 43, 214, 0.6); }
+  /* 13px com 0.16em: o texto tem que caber na volta do circulo (364px); maior
+     que isso o fim passa por cima do comeco */
+  .selo text { font-family: var(--condensada); font-weight: 700; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; fill: var(--acido); }
+  .selo-ponto { position: absolute; left: 50%; top: 50%; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; background: var(--rosa); box-shadow: 0 0 16px var(--rosa), 0 0 40px rgba(255, 63, 164, 0.6); }
   @keyframes girar { to { transform: rotate(360deg); } }
 
   /* a palavra da um lampejo a cada troca de foto */
   .lampejo { animation: lampejar 0.55s steps(1, end); }
   @keyframes lampejar { 0% { opacity: 1; } 20% { opacity: 0.25; } 35% { opacity: 1; } 55% { opacity: 0.4; } 70%, 100% { opacity: 1; } }
   .abertura-texto { position: relative; width: 100%; max-width: 1200px; }
-  .abertura-sobre { font-family: var(--pixel); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ciano); text-shadow: 0 0 10px rgba(0, 229, 255, 0.7); margin-bottom: 18px; }
+  .abertura-sobre { font-family: var(--condensada); font-weight: 600; font-size: 15px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ciano); text-shadow: 0 0 12px rgba(40, 240, 255, 0.6); margin-bottom: 18px; }
   /* O TITULO E A FRASE DA CASA, nao o nome: ela nao quis o NOLA gigante (o
-     logo ja esta no cabecalho). "Psicodelica" acende em verde, como neon. */
+     logo ja esta no cabecalho). "Psicodelica" e tinta verde-acido sob UV. */
   .abertura-titulo {
     font-size: clamp(46px, 7.6vw, 112px);
     line-height: 0.92;
     letter-spacing: 0.005em;
     max-width: 12ch;
+    text-shadow: 0 0 30px rgba(142, 92, 255, 0.35);
   }
-  .abertura-titulo em { font-style: normal; color: var(--verde); text-shadow: 0 0 10px #FFFFFF, 0 0 24px var(--verde), 0 0 60px rgba(57, 255, 20, 0.55); }
+  .abertura-titulo em { font-style: normal; color: var(--acido); text-shadow: 0 0 22px rgba(200, 255, 46, 0.65), 0 0 60px rgba(200, 255, 46, 0.3); }
   .abertura-frase {
     margin-top: clamp(16px, 2.6vh, 26px);
     font-size: clamp(16px, 1.3vw, 20px);
@@ -279,33 +313,21 @@
     max-width: 44ch;
   }
   .abertura-frase strong { color: var(--branco); font-weight: 500; }
-  .abertura-dias { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: clamp(16px, 2.6vh, 26px); font-family: var(--pixel); font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--cinza); }
+  .abertura-dias { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: clamp(16px, 2.6vh, 26px); font-family: var(--condensada); font-weight: 600; font-size: 15px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cinza); }
   /* o ponto fica DEPOIS de cada item (menos o ultimo): quando a linha quebra,
      ele sobra no fim da linha de cima, e nao solto no comeco da de baixo */
-  .abertura-dias span:not(:last-child)::after { content: ''; display: inline-block; width: 5px; height: 5px; margin-left: 14px; vertical-align: middle; background: var(--magenta); box-shadow: 0 0 8px var(--magenta); }
+  .abertura-dias span:not(:last-child)::after { content: ''; display: inline-block; width: 7px; height: 7px; margin-left: 14px; vertical-align: middle; background: var(--rosa); box-shadow: 0 0 10px var(--rosa); transform: skewX(-18deg); }
   .abertura-acoes { display: flex; flex-wrap: wrap; gap: 14px; margin-top: clamp(26px, 4vh, 40px); }
 
-  /* os objetos 3D do Nola, flutuando devagar */
-  .objeto { position: absolute; z-index: 0; pointer-events: none; filter: drop-shadow(0 0 24px rgba(255, 43, 214, 0.35)); }
-  /* longe do cabecalho: o globo comeca abaixo de 220px e o cubo fica no meio
-     da altura; antes o globo encostava no botao Lista VIP do menu */
-  .objeto--globo { right: clamp(-40px, -3vw, 10px); top: clamp(220px, 30vh, 320px); width: clamp(150px, 24vw, 340px); animation: flutuar 9s ease-in-out infinite; }
-  .objeto--cubo { left: clamp(-30px, -2vw, 20px); top: 52%; width: clamp(96px, 14vw, 200px); animation: flutuar 11s ease-in-out infinite reverse; }
-  @keyframes flutuar { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-22px) rotate(4deg); } }
-
-  /* a pichacao: um carimbo torto no canto */
-  .tag { position: absolute; pointer-events: none; opacity: 0.9; filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.35)); }
-  .tag--this { right: var(--margem); bottom: clamp(44px, 8vh, 90px); width: clamp(150px, 22vw, 320px); transform: rotate(-6deg); }
-
-  /* a palavra pisca e estabiliza, como neon ligando -- so DEPOIS que a cortina
-     abriu (body.pronto); sem script ela fica acesa, parada */
+  /* a palavra pisca e estabiliza, como a luz negra ligando -- so DEPOIS que a
+     cortina abriu (body.pronto); sem script ela fica acesa, parada */
   .pronto .pisca { animation: ligar 2.6s steps(1, end) 0.2s both; }
   @keyframes ligar {
     0% { opacity: 0.15; text-shadow: none; }
     6% { opacity: 1; }
     9% { opacity: 0.2; text-shadow: none; }
     14% { opacity: 1; }
-    22% { opacity: 0.35; text-shadow: 0 0 6px #FFFFFF; }
+    22% { opacity: 0.35; text-shadow: 0 0 6px rgba(200, 255, 46, 0.5); }
     28% { opacity: 1; }
     58% { opacity: 1; }
     61% { opacity: 0.45; }
@@ -313,13 +335,15 @@
     100% { opacity: 1; }
   }
 
-  /* ---- a faixa rolante com as festas ---- */
-  .faixa { overflow: hidden; border-top: 1px solid var(--linha); border-bottom: 1px solid var(--linha); background: var(--preto-2); padding: 14px 0; }
-  .faixa-trilho { display: inline-flex; gap: 48px; white-space: nowrap; padding-right: 48px; animation: rolar 32s linear infinite; }
-  .faixa-trilho span { font-family: var(--display); font-size: clamp(22px, 3vw, 34px); text-transform: uppercase; letter-spacing: 0.02em; color: var(--branco); }
-  .faixa-trilho span:nth-child(3n+1) { color: var(--magenta); text-shadow: 0 0 12px rgba(255, 43, 214, 0.7); }
-  .faixa-trilho span:nth-child(3n+2) { color: var(--verde); text-shadow: 0 0 12px rgba(57, 255, 20, 0.6); }
-  .faixa-trilho span:nth-child(3n) { color: var(--ciano); text-shadow: 0 0 12px rgba(0, 229, 255, 0.6); }
+  /* ---- a faixa rolante: letra enorme, metade cheia de tinta, metade so o
+     contorno, nas quatro cores ---- */
+  .faixa { overflow: hidden; border-top: 1px solid var(--linha); border-bottom: 1px solid var(--linha); background: var(--uv-2); padding: 12px 0; }
+  .faixa-trilho { display: inline-flex; gap: 44px; white-space: nowrap; padding-right: 44px; animation: rolar 32s linear infinite; }
+  .faixa-trilho span { font-family: var(--display); font-size: clamp(26px, 3.4vw, 40px); text-transform: uppercase; letter-spacing: 0.02em; color: var(--branco); }
+  .faixa-trilho span:nth-child(4n+1) { color: var(--acido); text-shadow: 0 0 14px rgba(200, 255, 46, 0.5); }
+  .faixa-trilho span:nth-child(4n+2) { color: transparent; -webkit-text-stroke: 1.5px var(--rosa); }
+  .faixa-trilho span:nth-child(4n+3) { color: var(--ciano); text-shadow: 0 0 14px rgba(40, 240, 255, 0.5); }
+  .faixa-trilho span:nth-child(4n) { color: transparent; -webkit-text-stroke: 1.5px var(--laranja); }
   @keyframes rolar { from { transform: translateX(0); } to { transform: translateX(-100%); } }
 
   /* ---- secoes ---- */
@@ -333,100 +357,113 @@
   .sobe { opacity: 0; transform: translateY(26px); transition: opacity 0.9s var(--curva), transform 0.9s var(--curva); }
   .sobe.visivel { opacity: 1; transform: none; }
 
-  /* ---- agenda: um cartaz por festa ---- */
-  .agenda { background: var(--preto); }
+  /* ---- agenda: um cartaz por festa, cada um com a sua tinta ---- */
+  .agenda { background: var(--uv); }
   .festas { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
   .festa {
+    --cor: var(--acido);
+    --halo: rgba(200, 255, 46, 0.22);
+    position: relative;
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: clamp(18px, 3vw, 40px);
-    padding: clamp(18px, 3vw, 30px) clamp(18px, 3vw, 34px);
+    padding: clamp(18px, 3vw, 30px) clamp(18px, 3vw, 34px) clamp(18px, 3vw, 30px) calc(clamp(18px, 3vw, 34px) + 8px);
     border: 1px solid var(--linha);
-    background: linear-gradient(135deg, var(--preto-2), var(--preto));
-    transition: border-color 0.3s var(--curva), box-shadow 0.3s var(--curva), transform 0.3s var(--curva);
+    border-left: 8px solid var(--cor);
+    background: linear-gradient(135deg, var(--uv-3), var(--uv-2));
+    transition: box-shadow 0.3s var(--curva), transform 0.3s var(--curva), border-color 0.3s var(--curva);
   }
-  .festa:hover { border-color: rgba(255, 43, 214, 0.7); box-shadow: 0 0 30px rgba(255, 43, 214, 0.18); transform: translateY(-2px); }
+  .festa:nth-child(4n+2) { --cor: var(--rosa); --halo: rgba(255, 63, 164, 0.22); }
+  .festa:nth-child(4n+3) { --cor: var(--ciano); --halo: rgba(40, 240, 255, 0.22); }
+  .festa:nth-child(4n) { --cor: var(--laranja); --halo: rgba(255, 107, 26, 0.22); }
+  .festa:hover { box-shadow: 0 0 36px var(--halo), inset 0 0 60px rgba(142, 92, 255, 0.08); transform: translateY(-2px); }
   .festa-data { display: grid; justify-items: start; min-width: 92px; }
-  .festa-dia { font-family: var(--display); font-size: clamp(54px, 8vw, 84px); line-height: 0.85; color: var(--branco); }
-  .festa-semana { font-family: var(--pixel); font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--magenta); text-shadow: 0 0 10px rgba(255, 43, 214, 0.6); margin-top: 8px; }
+  .festa-dia { font-family: var(--display); font-size: clamp(54px, 8vw, 84px); line-height: 0.85; color: var(--cor); text-shadow: 0 0 22px var(--halo); }
+  .festa-semana { font-family: var(--condensada); font-weight: 600; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cinza); margin-top: 8px; }
   .festa-nome { font-family: var(--display); font-size: clamp(28px, 4.2vw, 46px); line-height: 0.95; text-transform: uppercase; }
   .festa-detalhe { margin-top: 8px; color: var(--cinza); font-size: 15px; }
-  .festa-hora { font-family: var(--pixel); font-size: 10px; color: var(--ciano); text-shadow: 0 0 10px rgba(0, 229, 255, 0.6); margin-top: 10px; }
+  .festa-hora { font-family: var(--condensada); font-weight: 600; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ciano); text-shadow: 0 0 10px rgba(40, 240, 255, 0.5); margin-top: 10px; }
   .festa-acao { display: grid; gap: 10px; justify-items: stretch; }
   .festas-vazio { padding: 28px; border: 1px dashed var(--linha); color: var(--cinza); max-width: 60ch; }
   .agenda-pe { margin-top: 26px; color: var(--cinza); font-size: 14px; max-width: 60ch; }
-  .agenda-pe a { color: var(--verde); }
+  .agenda-pe a { color: var(--acido); }
 
-  /* ---- o Nola: a historia em tres tempos ---- */
-  .nola { background: var(--preto-2); overflow: hidden; }
-  .nola::before { content: ''; position: absolute; inset: 0; background: url('fotos/multidao-pb.webp') center / cover no-repeat; opacity: 0.16; mix-blend-mode: screen; pointer-events: none; }
+  /* ---- o Nola: a historia em tres tempos, sobre a parede grafitada ---- */
+  .nola { background: var(--uv-2); overflow: hidden; }
+  /* a textura e a propria parede do Nola sob luz negra, afogada no violeta */
+  .nola::before { content: ''; position: absolute; inset: 0; background: url('fotos/noite-03.webp') center / cover no-repeat; opacity: 0.22; filter: saturate(1.3); pointer-events: none; }
+  .nola::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, var(--uv-2) 0%, rgba(19, 10, 36, 0.78) 30%, rgba(19, 10, 36, 0.78) 70%, var(--uv-2) 100%); pointer-events: none; }
+  .nola > * { position: relative; z-index: 1; }
   .nola-grade { position: relative; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
   .tempos { display: grid; gap: clamp(26px, 4vh, 40px); }
   .tempo { display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: start; }
-  .tempo-ano { font-family: var(--display); font-size: clamp(34px, 5vw, 60px); line-height: 0.9; color: var(--magenta); text-shadow: 0 0 14px rgba(255, 43, 214, 0.6); min-width: 3.4ch; }
+  .tempo-ano { font-family: var(--display); font-size: clamp(34px, 5vw, 60px); line-height: 0.9; color: var(--laranja); text-shadow: 0 0 16px rgba(255, 107, 26, 0.55); min-width: 3.4ch; }
   .tempo h3 { font-size: clamp(22px, 2.6vw, 30px); margin-bottom: 8px; }
   .tempo p { color: var(--cinza); max-width: 52ch; }
   .tempo p strong { color: var(--branco); font-weight: 500; }
   .nola-foto { position: relative; }
-  /* so a fachada: a pichacao esta na mesma figura e nao pode herdar isto */
-  .nola-foto .nola-fachada { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; filter: saturate(1.1); border: 1px solid var(--linha); }
-  .nola-foto figcaption { margin-top: 10px; font-family: var(--pixel); font-size: 9px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--cinza); }
-  .tag--bar { position: absolute; right: -6%; top: -8%; width: 46%; transform: rotate(8deg); opacity: 0.85; }
+  .nola-foto .nola-fachada { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; filter: saturate(1.1); border: 1px solid var(--linha); box-shadow: 0 0 60px rgba(142, 92, 255, 0.18); }
+  .nola-foto figcaption { margin-top: 10px; font-family: var(--condensada); font-weight: 600; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cinza); }
   .nola-lema { margin-top: clamp(40px, 7vh, 72px); font-family: var(--display); font-size: clamp(34px, 6vw, 84px); line-height: 0.95; text-transform: uppercase; max-width: 18ch; }
-  .nola-lema em { font-style: normal; color: var(--ciano); text-shadow: 0 0 16px rgba(0, 229, 255, 0.7); }
+  .nola-lema em { font-style: normal; color: var(--ciano); text-shadow: 0 0 18px rgba(40, 240, 255, 0.6); }
 
-  /* ---- reservas: dois cartoes ---- */
+  /* ---- aniversario e lista VIP: dois cartoes, cada um com a sua tinta ---- */
   .reservas-grade { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
   .cartao {
+    --cor: var(--rosa);
     position: relative;
     display: grid;
     gap: 14px;
     align-content: start;
     padding: clamp(24px, 3.4vw, 40px);
     border: 1px solid var(--linha);
-    background: var(--preto-2);
+    border-top: 8px solid var(--cor);
+    background: var(--uv-3);
     overflow: hidden;
   }
-  .cartao::after { content: ''; position: absolute; right: -40px; bottom: -40px; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, var(--cor, var(--magenta)) 0%, transparent 70%); opacity: 0.35; pointer-events: none; }
-  .cartao--verde { --cor: var(--verde); }
-  .cartao .rotulo { color: var(--cor, var(--magenta)); }
+  .cartao::after { content: ''; position: absolute; right: -60px; bottom: -60px; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, var(--cor) 0%, transparent 70%); opacity: 0.32; filter: blur(10px); pointer-events: none; }
+  .cartao--verde { --cor: var(--acido); }
+  .cartao .rotulo { color: var(--cor); }
   .cartao h3 { font-size: clamp(34px, 5vw, 56px); }
   .cartao p { color: var(--cinza); max-width: 46ch; }
   .cartao .botao { justify-self: start; margin-top: 8px; position: relative; z-index: 1; }
 
   /* ---- fotos: mural com luz ---- */
-  .fotos { background: var(--preto-2); }
+  .fotos { background: var(--uv); }
   .mural { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: clamp(140px, 16vw, 260px); grid-auto-flow: dense; gap: 10px; }
-  .mural-item { position: relative; padding: 0; border: 1px solid var(--linha); background: var(--preto); cursor: zoom-in; overflow: hidden; transition: border-color 0.3s var(--curva), box-shadow 0.3s var(--curva); }
-  .mural-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--curva), filter 0.4s var(--curva); filter: saturate(1.1); }
+  .mural-item { position: relative; padding: 0; border: 1px solid var(--linha); background: var(--uv-2); cursor: zoom-in; overflow: hidden; transition: border-color 0.3s var(--curva), box-shadow 0.3s var(--curva); }
+  .mural-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--curva), filter 0.4s var(--curva); filter: saturate(1.15); }
   .mural-item:hover img, .mural-item:focus-visible img { transform: scale(1.04); }
-  .mural-item:hover, .mural-item:focus-visible { border-color: var(--ciano); box-shadow: 0 0 22px rgba(0, 229, 255, 0.35); outline: none; }
+  .mural-item:hover, .mural-item:focus-visible { border-color: var(--acido); box-shadow: 0 0 26px rgba(200, 255, 46, 0.35); outline: none; }
   .mural-item--alto { grid-row: span 2; }
   .mural-item--largo { grid-column: span 2; }
   .fotos-pe { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: 26px; color: var(--cinza); font-size: 14px; }
 
   /* a luz: a foto em tela cheia */
-  .luz { position: fixed; inset: 0; z-index: 200; width: 100vw; height: 100vh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: rgba(6, 6, 8, 0.96); color: var(--branco); }
-  .luz::backdrop { background: rgba(6, 6, 8, 0.9); }
+  .luz { position: fixed; inset: 0; z-index: 200; width: 100vw; height: 100vh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: rgba(11, 6, 20, 0.96); color: var(--branco); }
+  .luz::backdrop { background: rgba(11, 6, 20, 0.9); }
   .luz img { width: 100%; height: 100%; object-fit: contain; padding: clamp(12px, 3vw, 40px); }
-  .luz-fechar { position: absolute; top: 14px; right: 14px; width: 48px; height: 48px; padding: 0; background: rgba(6, 6, 8, 0.6); border: 1px solid var(--linha); border-radius: 50%; color: var(--branco); cursor: pointer; font-family: var(--pixel); font-size: 14px; }
-  .luz-fechar:hover, .luz-fechar:focus-visible { border-color: var(--magenta); box-shadow: 0 0 14px rgba(255, 43, 214, 0.6); outline: none; }
+  .luz-fechar { position: absolute; top: 14px; right: 14px; width: 48px; height: 48px; padding: 0; background: rgba(11, 6, 20, 0.6); border: 1px solid var(--linha); border-radius: 50%; color: var(--branco); cursor: pointer; font-family: var(--condensada); font-weight: 700; font-size: 18px; }
+  .luz-fechar:hover, .luz-fechar:focus-visible { border-color: var(--rosa); box-shadow: 0 0 14px rgba(255, 63, 164, 0.6); outline: none; }
 
   /* ---- drinks ---- */
+  .drinks { background: var(--uv-2); }
   .drinks-grade { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
-  .drinks-foto img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border: 1px solid var(--linha); filter: saturate(1.15); }
-  .drinks-texto .rotulo { display: block; margin-bottom: 30px; }
+  .drinks-foto img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border: 1px solid var(--linha); filter: saturate(1.2); box-shadow: 0 0 60px rgba(40, 240, 255, 0.14); }
+  .drinks-texto .rotulo { display: inline-flex; margin-bottom: 30px; }
   .drinks-texto p { color: var(--cinza); max-width: 50ch; }
   .drinks-texto p strong { color: var(--branco); font-weight: 500; }
   .drinks-lista { list-style: none; margin: 26px 0 0; padding: 0; display: grid; gap: 0; }
   .drinks-lista li { display: flex; justify-content: space-between; gap: 20px; padding: 14px 0; border-top: 1px solid var(--linha); font-size: 16px; }
   .drinks-lista li:last-child { border-bottom: 1px solid var(--linha); }
-  .drinks-lista span:last-child { font-family: var(--pixel); font-size: 10px; color: var(--verde); white-space: nowrap; align-self: center; }
+  .drinks-lista span:last-child { font-family: var(--condensada); font-weight: 600; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acido); white-space: nowrap; align-self: center; }
   .drinks-texto .botao { margin-top: 26px; }
 
   /* ---- como chegar ---- */
-  .chegar { background: var(--preto-2); }
+  .chegar { background: var(--uv); }
+  .chegar::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 85% 20%, rgba(142, 92, 255, 0.22), transparent 55%); pointer-events: none; }
+  .chegar > * { position: relative; }
   .chegar-grade { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
   .ficha { display: grid; gap: 0; }
   .ficha-item { padding: 20px 0; border-top: 1px solid var(--linha); display: grid; gap: 8px; }
@@ -435,25 +472,25 @@
   .ficha-item p { font-family: var(--display); font-size: clamp(22px, 2.6vw, 32px); line-height: 1; text-transform: uppercase; }
   .ficha-item small { color: var(--cinza); font-size: 15px; }
   .ficha-item a { text-decoration: none; }
-  .ficha-item a:hover { color: var(--verde); }
+  .ficha-item a:hover { color: var(--acido); }
   .chegar-acoes { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 26px; }
   .chegar-foto img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border: 1px solid var(--linha); filter: saturate(1.15); }
-  .chegar-foto figcaption { margin-top: 10px; font-family: var(--pixel); font-size: 9px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--cinza); }
+  .chegar-foto figcaption { margin-top: 10px; font-family: var(--condensada); font-weight: 600; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cinza); }
 
   /* ---- rodape ---- */
-  footer { padding: clamp(40px, 7vh, 72px) var(--margem) 32px; border-top: 1px solid var(--linha); }
+  footer { padding: clamp(40px, 7vh, 72px) var(--margem) 32px; border-top: 1px solid var(--linha); background: var(--uv-2); }
   .rodape-grade { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 28px; }
-  .rodape-marca img { height: 54px; width: auto; filter: drop-shadow(0 0 12px rgba(255, 43, 214, 0.5)); }
+  .rodape-marca img { height: 54px; width: auto; filter: drop-shadow(0 0 14px rgba(142, 92, 255, 0.6)); }
   .rodape-marca p { margin-top: 12px; color: var(--cinza); font-size: 14px; }
   .redes { display: flex; flex-wrap: wrap; gap: 10px 22px; list-style: none; margin: 0; padding: 0; }
-  .redes a { font-family: var(--pixel); font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none; color: var(--branco); opacity: 0.85; }
-  .redes a:hover { color: var(--verde); opacity: 1; text-shadow: 0 0 10px rgba(57, 255, 20, 0.7); }
+  .redes a { font-family: var(--condensada); font-weight: 600; font-size: 15px; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; color: var(--branco); opacity: 0.85; }
+  .redes a:hover { color: var(--acido); opacity: 1; text-shadow: 0 0 10px rgba(200, 255, 46, 0.6); }
   .rodape-fim { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--linha); color: var(--cinza); font-size: 12px; }
   .rodape-fim a { color: var(--cinza); }
   .rodape-fim a:hover { color: var(--branco); }
 
   /* ---- o grao por cima de tudo ---- */
-  .grao { position: fixed; inset: 0; z-index: 150; pointer-events: none; opacity: 0.07; mix-blend-mode: soft-light; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='r'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23r)'/%3E%3C/svg%3E"); }
+  .grao { position: fixed; inset: 0; z-index: 150; pointer-events: none; opacity: 0.08; mix-blend-mode: soft-light; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='r'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23r)'/%3E%3C/svg%3E"); }
 
   /* ---- celular ---- */
   @media (max-width: 900px) {
@@ -468,20 +505,20 @@
       gap: 22px;
       /* o respiro de baixo deixa lugar para o pe do menu */
       padding: 80px var(--margem) 150px;
-      background: rgba(6, 6, 8, 0.97);
+      background: rgba(11, 6, 20, 0.97) radial-gradient(ellipse at 80% 10%, rgba(142, 92, 255, 0.25), transparent 55%);
       clip-path: inset(0 0 100% 0);
       transition: clip-path 0.5s var(--curva);
     }
     .menu.aberto { clip-path: inset(0 0 0 0); }
-    .menu a { font-family: var(--display); font-size: 44px; letter-spacing: 0.01em; opacity: 1; }
+    .menu a { font-family: var(--display); font-weight: 400; font-size: 44px; letter-spacing: 0.01em; opacity: 1; }
     /* o logo fica por cima do menu aberto, como o botao de fechar */
     .marca { position: relative; z-index: 110; }
     /* o pe do menu: o botao da lista VIP (que no celular sai do cabecalho) e o horario */
     .menu-pe { display: grid; gap: 14px; position: absolute; left: var(--margem); right: var(--margem); bottom: max(28px, env(safe-area-inset-bottom)); }
-    /* o botao e um "a" dentro do menu, entao a regra .menu a tentava pinta-lo de branco e 44px */
-    .menu-pe .botao { font-family: var(--pixel); font-size: 11px; letter-spacing: 0.04em; color: var(--verde); }
-    .menu-pe .botao:hover, .menu-pe .botao:focus-visible { color: var(--preto); text-shadow: none; }
-    .menu-pe p { font-family: var(--pixel); font-size: 9px; line-height: 1.8; letter-spacing: 0.04em; text-transform: uppercase; color: var(--cinza); }
+    /* o botao e um "a" dentro do menu, entao a regra .menu a tentava pinta-lo de 44px */
+    .menu-pe .botao { font-family: var(--condensada); font-weight: 700; font-size: 16px; letter-spacing: 0.1em; color: var(--uv); }
+    .menu-pe .botao:hover, .menu-pe .botao:focus-visible { color: var(--uv); text-shadow: none; }
+    .menu-pe p { font-family: var(--condensada); font-weight: 600; font-size: 13px; line-height: 1.6; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cinza); }
     .menu-abrir { display: block; }
     .topo-vip { display: none; }
     /* a legenda do slide quebra para baixo da barra: encosta nela em vez de ficar solta */
@@ -493,13 +530,11 @@
     .festa { grid-template-columns: auto 1fr; }
     .festa-acao { grid-column: 1 / -1; grid-auto-flow: column; justify-content: start; }
     .festa-acao .botao { min-width: 160px; }
-    /* no celular a abertura fica so com a foto e o texto: a pichacao, o cubo
-       e o selo encostavam no menu ou cobriam o texto, e o globo cobria o texto */
-    .tag--this, .objeto--cubo, .selo { display: none; }
-    .objeto--globo { top: 118px; right: -14vw; width: 46vw; opacity: 0.7; }
-    .nola::before { opacity: 0.12; }
-    /* a pichacao "nola bar" cai sobre o canto da foto, nao sobre o texto acima dela */
-    .tag--bar { right: -2%; top: -6%; width: 44%; }
+    /* no celular o selo cobriria o texto da abertura */
+    .selo { display: none; }
+    .abertura-veu::before { width: 70vw; height: 70vw; right: -20%; top: 4%; }
+    .abertura-veu::after { width: 80vw; height: 80vw; left: -30%; bottom: -16%; }
+    .nola::before { opacity: 0.18; }
   }
   @media (max-width: 520px) {
     body { font-size: 16px; }
@@ -516,7 +551,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .pisca, .objeto, .faixa-trilho, .cortina img, .selo svg, .slide-foto img, .lampejo { animation: none !important; }
+    .pisca, .faixa-trilho, .cortina img, .selo svg, .slide-foto img, .lampejo, .abertura-veu::before, .abertura-veu::after { animation: none !important; }
     .cortina img { opacity: 1; }
     .slide-foto img { transform: none; }
     .marcador.ativo::after { animation: none; transform: scaleX(1); }
@@ -550,7 +585,7 @@
 </script>
 </head>
 <body>
-<!-- a cortina: o logo acende e as folhas abrem; so no primeiro quadro -->
+<!-- a cortina: o logo acende sob luz negra e as folhas violeta abrem; so no primeiro quadro -->
 <div class="cortina" id="cortina" aria-hidden="true">
   <span class="cortina-folha cortina-folha--esq"></span>
   <span class="cortina-folha cortina-folha--dir"></span>
@@ -584,8 +619,8 @@
 <main>
   <!-- ======================================================== abertura == -->
   <section class="abertura" id="inicio">
-    <!-- O SLIDE: quatro fotos em rodizio, cada uma com um banho de cor neon
-         (data-tom) e aproximacao lenta enquanto esta no ar. Deitadas no
+    <!-- O SLIDE: quatro fotos em rodizio, cada uma com um banho de tinta
+         fluorescente (data-tom) e aproximacao lenta enquanto esta no ar. Deitadas no
          computador, em pe no celular. A legenda de cada uma fala da casa, nao
          da foto, para servir nas duas versoes. -->
     <div class="abertura-slides" id="slidesAbertura" aria-hidden="true">
@@ -615,18 +650,14 @@
       </div>
     </div>
     <div class="abertura-veu" aria-hidden="true"></div>
-    <div class="abertura-linhas" aria-hidden="true"></div>
     <!-- o selo que gira: so no computador -->
     <div class="selo" aria-hidden="true">
       <svg viewBox="0 0 160 160">
         <defs><path id="seloCurva" d="M80,80 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs>
-        <text><textPath href="#seloCurva">Lista VIP · Sex e Sáb · 22h às 5h · Vila Madalena · </textPath></text>
+        <text><textPath href="#seloCurva">Lista VIP · Sex e Sáb · 22h às 5h · </textPath></text>
       </svg>
       <span class="selo-ponto"></span>
     </div>
-    <img class="objeto objeto--globo" src="fotos/globo-anel.webp" alt="" width="900" height="875" aria-hidden="true" decoding="async">
-    <img class="objeto objeto--cubo" src="fotos/cubo.webp" alt="" width="900" height="900" aria-hidden="true" decoding="async">
-    <img class="tag tag--this" src="fotos/tag-this-is-nola.webp" alt="" width="811" height="191" aria-hidden="true" decoding="async">
 
     <div class="abertura-texto">
       <p class="abertura-sobre">Vila Madalena · SP · desde 2013</p>
@@ -708,7 +739,6 @@
       </div>
       <figure class="nola-foto sobe">
         <img class="nola-fachada" src="fotos/fachada-antiga.webp" alt="A fachada do Nola nos primeiros anos, na Rua Mourato Coelho" width="1289" height="1300" loading="lazy" decoding="async">
-        <img class="tag tag--bar" src="fotos/tag-nola-bar.webp" alt="" width="867" height="394" aria-hidden="true" loading="lazy" decoding="async">
         <figcaption>A fachada dos primeiros anos</figcaption>
       </figure>
     </div>
@@ -789,7 +819,7 @@
           <li><span>Shots para a galera inteira</span><span>Rodada</span></li>
           <li><span>Cerveja gelada e long necks</span><span>Sempre</span></li>
         </ul>
-        <a class="botao botao--verde" href="https://wa.me/message/D5C34BVV3MNXF1" target="_blank" rel="noopener">Perguntar o cardápio</a>
+        <a class="botao" href="https://wa.me/message/D5C34BVV3MNXF1" target="_blank" rel="noopener">Perguntar o cardápio</a>
       </div>
     </div>
   </section>
@@ -861,8 +891,8 @@
   var calmo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* 0. A cortina, em tres tempos:
-        ate 1,6s   o logo acende como neon, piscando e estabilizando;
-        1,6s       o fio magenta acende na juncao das folhas;
+        ate 1,6s   o logo acende como roupa branca sob luz negra, piscando;
+        1,6s       o fio verde-acido acende na juncao das folhas;
         2,0s       as folhas correm para os lados; body.pronto liga a
                    palavra "psicodelica" da abertura.
      Com movimento reduzido nao ha espera: a cortina ja nasce aberta. */
