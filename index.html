@@ -429,15 +429,30 @@
   .cartao p { color: var(--cinza); max-width: 46ch; }
   .cartao .botao { justify-self: start; margin-top: 8px; position: relative; z-index: 1; }
 
-  /* ---- fotos: mural com luz ---- */
-  .fotos { background: var(--uv); }
-  .mural { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: clamp(140px, 16vw, 260px); grid-auto-flow: dense; gap: 10px; }
-  .mural-item { position: relative; padding: 0; border: 1px solid var(--linha); background: var(--uv-2); cursor: zoom-in; overflow: hidden; transition: border-color 0.3s var(--curva), box-shadow 0.3s var(--curva); }
-  .mural-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--curva), filter 0.4s var(--curva); filter: saturate(1.15); }
-  .mural-item:hover img, .mural-item:focus-visible img { transform: scale(1.04); }
-  .mural-item:hover, .mural-item:focus-visible { border-color: var(--acido); box-shadow: 0 0 26px rgba(200, 255, 46, 0.35); outline: none; }
-  .mural-item--alto { grid-row: span 2; }
-  .mural-item--largo { grid-column: span 2; }
+  /* ---- fotos: galeria em slide, uma foto grande de cada vez ----
+     O trilho sangra ate as bordas da tela e rola na horizontal com encaixe
+     (scroll-snap) no centro. A foto do meio fica inteira; as vizinhas ficam
+     apagadas e um pouco menores. Altura fixa no computador (as deitadas e as
+     em pe convivem); no celular cada foto ocupa 84% da largura em 4:5. */
+  .fotos { background: var(--uv); overflow: hidden; }
+  .galeria { --foto-h: min(62vh, 640px); position: relative; margin: 0 calc(-1 * var(--margem)); }
+  .galeria-trilho { position: relative; display: flex; align-items: center; gap: clamp(14px, 2vw, 28px); height: var(--foto-h); overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 0 calc(50% - var(--foto-h) * 0.75); scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .galeria-trilho::-webkit-scrollbar { display: none; }
+  .galeria-trilho:focus-visible { outline: 2px solid var(--acido); outline-offset: -2px; }
+  .galeria-item { position: relative; flex: 0 0 auto; height: 100%; aspect-ratio: 3 / 2; scroll-snap-align: center; padding: 0; border: 1px solid var(--linha); background: var(--uv-2); cursor: zoom-in; overflow: hidden; opacity: 0.38; transform: scale(0.94); transition: opacity 0.6s var(--curva), transform 0.6s var(--curva), box-shadow 0.6s var(--curva); }
+  .galeria-item--alto { aspect-ratio: 2 / 3; }
+  .galeria-item--quase { aspect-ratio: 4 / 5; }
+  .galeria-item img { width: 100%; height: 100%; object-fit: cover; filter: saturate(1.15); }
+  .galeria-item.vista { opacity: 1; transform: none; box-shadow: 0 0 70px rgba(142, 92, 255, 0.22); }
+  .galeria-item:focus-visible { outline: 2px solid var(--acido); outline-offset: 4px; }
+  .galeria-pe { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin: 22px var(--margem) 0; }
+  .galeria-legenda { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; margin: 0; font-family: var(--condensada); font-weight: 600; font-size: 15px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cinza); }
+  .galeria-n { color: var(--acido); font-variant-numeric: tabular-nums; text-shadow: 0 0 10px rgba(200, 255, 46, 0.5); }
+  .galeria-setas { display: flex; gap: 10px; flex: none; }
+  .seta-galeria { width: 50px; height: 50px; padding: 0; border-radius: 50%; border: 1px solid rgba(238, 230, 255, 0.35); background: transparent; color: var(--branco); font-size: 20px; line-height: 1; cursor: pointer; transition: background 0.25s var(--curva), color 0.25s var(--curva), border-color 0.25s var(--curva), box-shadow 0.25s var(--curva); }
+  .seta-galeria:hover, .seta-galeria:focus-visible { background: var(--acido); border-color: var(--acido); color: var(--uv); box-shadow: 0 0 22px rgba(200, 255, 46, 0.45); outline: none; }
+  .galeria-barra { height: 2px; margin: 18px var(--margem) 0; background: rgba(238, 230, 255, 0.14); }
+  .galeria-barra i { display: block; height: 100%; background: var(--acido); box-shadow: 0 0 10px rgba(200, 255, 46, 0.7); transform-origin: left; transform: scaleX(0.0834); transition: transform 0.5s var(--curva); }
   .fotos-pe { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: 26px; color: var(--cinza); font-size: 14px; }
 
   /* a luz: a foto em tela cheia */
@@ -523,8 +538,10 @@
     .topo-vip { display: none; }
     /* a legenda do slide quebra para baixo da barra: encosta nela em vez de ficar solta */
     .slide-legenda { flex-basis: 100%; margin-top: -14px; }
-    .mural { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: clamp(150px, 42vw, 220px); }
-    .mural-item--largo { grid-column: span 2; }
+    /* a galeria no celular: cada foto com 84% da largura, em 4:5, com as vizinhas espiando */
+    .galeria-trilho { height: auto; padding: 0 8vw; gap: 12px; }
+    .galeria-item, .galeria-item--alto, .galeria-item--quase { height: auto; width: 84vw; aspect-ratio: 4 / 5; }
+    .galeria-pe { flex-wrap: wrap; }
     .nola-grade, .drinks-grade, .chegar-grade { grid-template-columns: 1fr; }
     .reservas-grade { grid-template-columns: 1fr; }
     .festa { grid-template-columns: auto 1fr; }
@@ -556,6 +573,8 @@
     .slide-foto img { transform: none; }
     .marcador.ativo::after { animation: none; transform: scaleX(1); }
     .sobe { opacity: 1; transform: none; transition: none; }
+    .galeria-trilho { scroll-behavior: auto; }
+    .galeria-item { transition: none; }
     *, *::before, *::after { transition-duration: 0.01ms !important; }
   }
 </style>
@@ -774,21 +793,35 @@
     <div class="cabeca sobe">
       <span class="rotulo">04 — Fotos</span>
       <h2>Vê se você<br>saiu em alguma</h2>
-      <p>Toda semana sobem as fotos das noites. Toque para ver grande.</p>
+      <p>Toda semana sobem as fotos das noites. Deslize para passar, toque para ver grande.</p>
     </div>
-    <div class="mural sobe" id="mural">
-      <button type="button" class="mural-item mural-item--alto" data-foto="fotos/noite-01.webp"><img src="fotos/noite-01.webp" alt="Tinta neon no rosto, na pista do Nola" width="933" height="1400" loading="lazy" decoding="async"></button>
-      <button type="button" class="mural-item mural-item--largo" data-foto="fotos/noite-03.webp"><img src="fotos/noite-03.webp" alt="O muro grafitado em luz negra, com a frase isso é Nola" width="1600" height="1067" loading="lazy" decoding="async"></button>
-      <button type="button" class="mural-item" data-foto="fotos/noite-06.webp"><img src="fotos/noite-06.webp" alt="Dançando na pista" width="933" height="1400" loading="lazy" decoding="async"></button>
-      <button type="button" class="mural-item mural-item--alto" data-foto="fotos/noite-02.webp"><img src="fotos/noite-02.webp" alt="A sala de grafite em luz negra" width="895" height="1400" loading="lazy" decoding="async"></button>
-      <button type="button" class="mural-item" data-foto="fotos/noite-07.webp"><img src="fotos/noite-07.webp" alt="A pista cheia, vista de cima" width="1600" height="1066" loading="lazy" decoding="async"></button>
-      <button type="button" class="mural-item" data-foto="fotos/noite-09.webp"><img src="fotos/noite-09.webp" alt="Na pista, de braços abertos" width="1600" height="1067" loading="lazy" decoding="async"></button>
-      <button type="button" class="mural-item mural-item--largo" data-foto="fotos/noite-05.webp"><img src="fotos/noite-05.webp" alt="A parede de bolhas laranja" width="1600" height="1067" loading="lazy" decoding="async"></button>
-      <button type="button" class="mural-item mural-item--alto" data-foto="fotos/noite-10.webp"><img src="fotos/noite-10.webp" alt="Com o copo na mão, na pista" width="933" height="1400" loading="lazy" decoding="async"></button>
-      <button type="button" class="mural-item" data-foto="fotos/noite-08.webp"><img src="fotos/noite-08.webp" alt="A turma no grafite" width="1600" height="1066" loading="lazy" decoding="async"></button>
-      <button type="button" class="mural-item" data-foto="fotos/noite-12.webp"><img src="fotos/noite-12.webp" alt="Luz rosa na pista" width="1600" height="1067" loading="lazy" decoding="async"></button>
-      <button type="button" class="mural-item mural-item--alto" data-foto="fotos/noite-11.webp"><img src="fotos/noite-11.webp" alt="Rindo na pista" width="933" height="1400" loading="lazy" decoding="async"></button>
-      <button type="button" class="mural-item" data-foto="fotos/noite-04.webp"><img src="fotos/noite-04.webp" alt="O drink azul" width="1136" height="1400" loading="lazy" decoding="async"></button>
+    <!-- A GALERIA: uma foto grande de cada vez, as vizinhas apagadas espiando
+         pelas bordas. Desliza com o dedo, com as setas ou com o teclado; o
+         contador, a legenda e a linha seguem a foto do meio; o toque abre a
+         foto em tela cheia (a luz). Pedido dela: "galeria chic, com slide". -->
+    <div class="galeria sobe" id="galeria">
+      <div class="galeria-trilho" id="galeriaTrilho" tabindex="0" role="group" aria-label="Fotos das noites. Use as setas do teclado para passar.">
+        <button type="button" class="galeria-item vista" data-foto="fotos/noite-03.webp" aria-label="Ver grande: O muro grafitado em luz negra, com a frase isso é Nola"><img src="fotos/noite-03.webp" alt="O muro grafitado em luz negra, com a frase isso é Nola" width="1600" height="1067" loading="lazy" decoding="async"></button>
+        <button type="button" class="galeria-item galeria-item--alto" data-foto="fotos/noite-01.webp" aria-label="Ver grande: Tinta neon no rosto, na pista do Nola"><img src="fotos/noite-01.webp" alt="Tinta neon no rosto, na pista do Nola" width="933" height="1400" loading="lazy" decoding="async"></button>
+        <button type="button" class="galeria-item" data-foto="fotos/noite-05.webp" aria-label="Ver grande: A parede de bolhas laranja"><img src="fotos/noite-05.webp" alt="A parede de bolhas laranja" width="1600" height="1067" loading="lazy" decoding="async"></button>
+        <button type="button" class="galeria-item galeria-item--alto" data-foto="fotos/noite-06.webp" aria-label="Ver grande: Dançando na pista"><img src="fotos/noite-06.webp" alt="Dançando na pista" width="933" height="1400" loading="lazy" decoding="async"></button>
+        <button type="button" class="galeria-item" data-foto="fotos/noite-07.webp" aria-label="Ver grande: A pista cheia, vista de cima"><img src="fotos/noite-07.webp" alt="A pista cheia, vista de cima" width="1600" height="1066" loading="lazy" decoding="async"></button>
+        <button type="button" class="galeria-item galeria-item--alto" data-foto="fotos/noite-02.webp" aria-label="Ver grande: A sala de grafite em luz negra"><img src="fotos/noite-02.webp" alt="A sala de grafite em luz negra" width="895" height="1400" loading="lazy" decoding="async"></button>
+        <button type="button" class="galeria-item" data-foto="fotos/noite-09.webp" aria-label="Ver grande: Na pista, de braços abertos"><img src="fotos/noite-09.webp" alt="Na pista, de braços abertos" width="1600" height="1067" loading="lazy" decoding="async"></button>
+        <button type="button" class="galeria-item galeria-item--alto" data-foto="fotos/noite-10.webp" aria-label="Ver grande: Com o copo na mão, na pista"><img src="fotos/noite-10.webp" alt="Com o copo na mão, na pista" width="933" height="1400" loading="lazy" decoding="async"></button>
+        <button type="button" class="galeria-item" data-foto="fotos/noite-08.webp" aria-label="Ver grande: A turma no grafite"><img src="fotos/noite-08.webp" alt="A turma no grafite" width="1600" height="1066" loading="lazy" decoding="async"></button>
+        <button type="button" class="galeria-item galeria-item--alto" data-foto="fotos/noite-11.webp" aria-label="Ver grande: Rindo na pista"><img src="fotos/noite-11.webp" alt="Rindo na pista" width="933" height="1400" loading="lazy" decoding="async"></button>
+        <button type="button" class="galeria-item" data-foto="fotos/noite-12.webp" aria-label="Ver grande: Luz rosa na pista"><img src="fotos/noite-12.webp" alt="Luz rosa na pista" width="1600" height="1067" loading="lazy" decoding="async"></button>
+        <button type="button" class="galeria-item galeria-item--quase" data-foto="fotos/noite-04.webp" aria-label="Ver grande: O drink azul"><img src="fotos/noite-04.webp" alt="O drink azul" width="1136" height="1400" loading="lazy" decoding="async"></button>
+      </div>
+      <div class="galeria-pe">
+        <p class="galeria-legenda" aria-live="polite"><span class="galeria-n" id="galeriaN">01 / 12</span><span id="galeriaTexto">O muro grafitado em luz negra, com a frase isso é Nola</span></p>
+        <div class="galeria-setas">
+          <button type="button" class="seta-galeria" id="galeriaAnt" aria-label="Foto anterior">&larr;</button>
+          <button type="button" class="seta-galeria" id="galeriaProx" aria-label="Próxima foto">&rarr;</button>
+        </div>
+      </div>
+      <div class="galeria-barra" aria-hidden="true"><i id="galeriaBarra"></i></div>
     </div>
     <div class="fotos-pe sobe">
       <span>As fotos completas de cada noite saem no Instagram.</span>
@@ -1088,14 +1121,64 @@
     vazio.hidden = false;
   }
 
-  /* 6. A luz: a foto do mural em tela cheia. */
+  /* 6. A galeria: uma foto grande de cada vez. O trilho rola com encaixe no
+     centro; as setas, o teclado e o dedo passam a foto; o contador, a legenda
+     e a linha seguem a foto do meio. O toque numa foto abre a luz (tela
+     cheia). Com movimento reduzido o trilho pula em vez de deslizar. */
+  var trilho = document.getElementById('galeriaTrilho');
+  var fotos = trilho ? Array.prototype.slice.call(trilho.querySelectorAll('.galeria-item')) : [];
+  var galN = document.getElementById('galeriaN');
+  var galTexto = document.getElementById('galeriaTexto');
+  var galBarra = document.getElementById('galeriaBarra');
+  function dois(n) { return (n < 10 ? '0' : '') + n; }
+  function fotoDoMeio() {
+    var centro = trilho.scrollLeft + trilho.clientWidth / 2;
+    var melhor = 0, menor = Infinity;
+    fotos.forEach(function (f, k) {
+      var c = f.offsetLeft + f.offsetWidth / 2;
+      var d = Math.abs(c - centro);
+      if (d < menor) { menor = d; melhor = k; }
+    });
+    return melhor;
+  }
+  function marcarFoto() {
+    var i = fotoDoMeio();
+    fotos.forEach(function (f, k) { f.classList.toggle('vista', k === i); });
+    if (galN) galN.textContent = dois(i + 1) + ' / ' + dois(fotos.length);
+    if (galTexto) { var img = fotos[i].querySelector('img'); galTexto.textContent = img ? img.alt : ''; }
+    if (galBarra) galBarra.style.transform = 'scaleX(' + ((i + 1) / fotos.length) + ')';
+  }
+  function irParaFoto(i) {
+    i = (i + fotos.length) % fotos.length;
+    var f = fotos[i];
+    var x = f.offsetLeft + f.offsetWidth / 2 - trilho.clientWidth / 2;
+    if (typeof trilho.scrollTo === 'function') trilho.scrollTo({ left: x, behavior: calmo ? 'auto' : 'smooth' });
+    else trilho.scrollLeft = x;
+  }
+  if (trilho && fotos.length) {
+    var pedidoGal = false;
+    trilho.addEventListener('scroll', function () {
+      if (pedidoGal) return;
+      pedidoGal = true;
+      window.requestAnimationFrame(function () { marcarFoto(); pedidoGal = false; });
+    }, { passive: true });
+    document.getElementById('galeriaAnt').addEventListener('click', function () { irParaFoto(fotoDoMeio() - 1); });
+    document.getElementById('galeriaProx').addEventListener('click', function () { irParaFoto(fotoDoMeio() + 1); });
+    trilho.addEventListener('keydown', function (ev) {
+      if (ev.key === 'ArrowRight') { ev.preventDefault(); irParaFoto(fotoDoMeio() + 1); }
+      if (ev.key === 'ArrowLeft') { ev.preventDefault(); irParaFoto(fotoDoMeio() - 1); }
+    });
+    window.addEventListener('resize', marcarFoto);
+    marcarFoto();
+  }
+
+  /* 7. A luz: a foto da galeria em tela cheia. */
   var luz = document.getElementById('luz');
   var luzImg = document.getElementById('luzImg');
   var luzFechar = document.getElementById('luzFechar');
-  var mural = document.getElementById('mural');
-  if (luz && mural && typeof luz.showModal === 'function') {
-    mural.addEventListener('click', function (ev) {
-      var item = ev.target.closest('.mural-item');
+  if (luz && trilho && typeof luz.showModal === 'function') {
+    trilho.addEventListener('click', function (ev) {
+      var item = ev.target.closest('.galeria-item');
       if (!item) return;
       var img = item.querySelector('img');
       luzImg.src = item.getAttribute('data-foto');

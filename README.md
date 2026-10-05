@@ -41,7 +41,7 @@ O cabecalho do proprio `agenda.js` explica o formato. Nao e preciso tocar no
 | 01 Agenda | Um cartaz por festa, a partir de `agenda.js` |
 | 02 O Nola | A historia em tres tempos (2013, 2023, hoje) e a fachada antiga |
 | 03 Aniversario e lista VIP | Aniversario com WhatsApp e mensagem pronta, e a lista VIP. Sem camarote: a casa nao tem mesa para reservar (ela avisou em 05/10/2026) |
-| 04 Fotos | Mural de doze fotos das noites, abrindo em tela cheia, e link do Instagram |
+| 04 Fotos | Galeria em slide com doze fotos das noites: uma grande no centro, as vizinhas apagadas espiando pelas bordas, setas, contador com legenda e linha de progresso; desliza com o dedo, as setas ou o teclado, e o toque abre em tela cheia. Pedido dela em 05/10/2026 ("galeria chic, com slide"), no lugar do mural em grade. Link do Instagram embaixo |
 | 05 Drinks | Texto da casa e um ESBOCO de lista (ver pendencias) |
 | 06 Como chegar | Endereco, dias e horario, contato, Waze e Google Maps, a fachada a noite |
 | Rodape | Redes, contato e credito da ereio |
