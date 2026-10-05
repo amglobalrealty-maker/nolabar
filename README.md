@@ -62,10 +62,13 @@ O cabecalho do proprio `agenda.js` explica o formato. Nao e preciso tocar no
   roda, os blocos sobem ao entrar na tela. Com `prefers-reduced-motion`, nada
   se mexe.
 - **Celular primeiro**: cada bloco foi desenhado em 390px e aberto depois para
-  o computador. Menu em tela cheia no celular; cabecalho transparente sobre a
-  foto e escuro ao rolar. Nada encosta no cabecalho: a abertura tem 120px de
-  respiro em cima, o globo comeca abaixo de 220px e, no celular, a pichacao e
-  o cubo nem aparecem (encostavam no menu).
+  o computador. Menu em tela cheia no celular, com o logo por cima e, no pe, o
+  botao da lista VIP (que sai do cabecalho) e o horario; cabecalho transparente
+  sobre a foto e escuro ao rolar. Nada encosta no cabecalho: a abertura tem
+  120px de respiro em cima, o globo comeca abaixo de 220px e, no celular, a
+  pichacao e o cubo nem aparecem (encostavam no menu). Botoes sempre na
+  largura toda (ou dois lado a lado no cartaz da festa), area de toque de
+  44px, secoes mais proximas que no computador.
 
 ## Fotos: material provisorio
 

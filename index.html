@@ -186,6 +186,7 @@
   }
   .menu a:hover, .menu a.ativo { opacity: 1; color: var(--verde); text-shadow: 0 0 10px rgba(57, 255, 20, 0.7); }
   .topo-vip { padding: 10px 14px; min-height: 40px; font-size: 10px; }
+  .menu-pe { display: none; }   /* o pe do menu (lista VIP e horario) so existe no celular */
   .menu-abrir {
     display: none;
     position: relative;
@@ -456,6 +457,7 @@
 
   /* ---- celular ---- */
   @media (max-width: 900px) {
+    :root { --secao: clamp(56px, 8vh, 84px); }   /* no celular as secoes ficam mais perto */
     .menu {
       position: fixed;
       inset: 0;
@@ -464,15 +466,26 @@
       align-items: flex-start;
       justify-content: center;
       gap: 22px;
-      padding: 0 var(--margem);
+      /* o respiro de baixo deixa lugar para o pe do menu */
+      padding: 80px var(--margem) 150px;
       background: rgba(6, 6, 8, 0.97);
       clip-path: inset(0 0 100% 0);
       transition: clip-path 0.5s var(--curva);
     }
     .menu.aberto { clip-path: inset(0 0 0 0); }
     .menu a { font-family: var(--display); font-size: 44px; letter-spacing: 0.01em; opacity: 1; }
+    /* o logo fica por cima do menu aberto, como o botao de fechar */
+    .marca { position: relative; z-index: 110; }
+    /* o pe do menu: o botao da lista VIP (que no celular sai do cabecalho) e o horario */
+    .menu-pe { display: grid; gap: 14px; position: absolute; left: var(--margem); right: var(--margem); bottom: max(28px, env(safe-area-inset-bottom)); }
+    /* o botao e um "a" dentro do menu, entao a regra .menu a tentava pinta-lo de branco e 44px */
+    .menu-pe .botao { font-family: var(--pixel); font-size: 11px; letter-spacing: 0.04em; color: var(--verde); }
+    .menu-pe .botao:hover, .menu-pe .botao:focus-visible { color: var(--preto); text-shadow: none; }
+    .menu-pe p { font-family: var(--pixel); font-size: 9px; line-height: 1.8; letter-spacing: 0.04em; text-transform: uppercase; color: var(--cinza); }
     .menu-abrir { display: block; }
     .topo-vip { display: none; }
+    /* a legenda do slide quebra para baixo da barra: encosta nela em vez de ficar solta */
+    .slide-legenda { flex-basis: 100%; margin-top: -14px; }
     .mural { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: clamp(150px, 42vw, 220px); }
     .mural-item--largo { grid-column: span 2; }
     .nola-grade, .drinks-grade, .chegar-grade { grid-template-columns: 1fr; }
@@ -485,7 +498,8 @@
     .tag--this, .objeto--cubo, .selo { display: none; }
     .objeto--globo { top: 118px; right: -14vw; width: 46vw; opacity: 0.7; }
     .nola::before { opacity: 0.12; }
-    .tag--bar { right: 0; top: -10%; width: 40%; }
+    /* a pichacao "nola bar" cai sobre o canto da foto, nao sobre o texto acima dela */
+    .tag--bar { right: -2%; top: -6%; width: 44%; }
   }
   @media (max-width: 520px) {
     body { font-size: 16px; }
@@ -493,8 +507,10 @@
     .abertura-titulo { font-size: clamp(44px, 12.6vw, 64px); max-width: none; }
     .abertura-acoes .botao { flex: 1 1 100%; }
     .festa-dia { font-size: 52px; }
-    .festa-acao { grid-auto-flow: row; }
-    .festa-acao .botao { min-width: 0; }
+    /* os botoes da festa ocupam a largura do cartaz: dois lado a lado, um sozinho inteiro */
+    .festa-acao { grid-auto-flow: row; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); justify-content: stretch; }
+    .festa-acao .botao { min-width: 0; padding-left: 12px; padding-right: 12px; }
+    .chegar-acoes .botao { flex: 1 1 100%; }
     .drinks-lista li { font-size: 15px; }
   }
 
@@ -555,6 +571,11 @@
     <a href="#fotos">Fotos</a>
     <a href="#drinks">Drinks</a>
     <a href="#chegar">Como chegar</a>
+    <!-- so aparece no celular: o botao da lista VIP sai do cabecalho e vem para ca -->
+    <div class="menu-pe">
+      <a class="botao" href="https://wa.me/message/D5C34BVV3MNXF1" target="_blank" rel="noopener">Entrar na lista VIP</a>
+      <p>Sexta, sábado e vésperas de feriado · 22h às 5h</p>
+    </div>
   </nav>
   <a class="botao topo-vip" href="https://wa.me/message/D5C34BVV3MNXF1" target="_blank" rel="noopener">Lista VIP</a>
   <button class="menu-abrir" id="menuAbrir" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
