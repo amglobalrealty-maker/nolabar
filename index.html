@@ -79,6 +79,36 @@
   .pular { position: absolute; left: -999px; top: 12px; z-index: 300; padding: 12px 16px; background: var(--verde); color: var(--preto); font-family: var(--pixel); font-size: 11px; }
   .pular:focus { left: 12px; }
 
+  /* ---- A CORTINA: o logo do Nola acende em neon e as duas folhas abrem ----
+     Pedido dela: abrir com o logo, como no AM Global. Duas folhas pretas
+     cobrem o site; o logo acende no meio como um neon ligando (pisca e
+     estabiliza, com o brilho magenta crescendo); um fio magenta acende na
+     juncao; e as folhas correm para os lados, deixando o site aparecer.
+     Com movimento reduzido, a cortina ja nasce aberta. */
+  .cortina { position: fixed; inset: 0; z-index: 250; display: grid; place-items: center; overflow: hidden; }
+  .cortina.saiu { pointer-events: none; visibility: hidden; transition: visibility 0s linear 1.4s; }
+  .cortina-folha { position: absolute; top: 0; bottom: 0; width: 50.5%; background: var(--preto); transition: transform 1.3s cubic-bezier(0.76, 0, 0.24, 1); }
+  .cortina-folha--esq { left: 0; }
+  .cortina-folha--dir { right: 0; }
+  .cortina.saiu .cortina-folha--esq { transform: translateX(-100%); }
+  .cortina.saiu .cortina-folha--dir { transform: translateX(100%); }
+  .cortina-fio { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; margin-left: -1px; background: var(--magenta); box-shadow: 0 0 12px var(--magenta), 0 0 32px rgba(255, 43, 214, 0.7); opacity: 0; transform: scaleY(0); transition: opacity 0.4s var(--curva), transform 0.7s var(--curva); }
+  .cortina.abrindo .cortina-fio { opacity: 1; transform: scaleY(1); }
+  .cortina.saiu .cortina-fio { opacity: 0; transition-duration: 0.3s; }
+  .cortina img { position: relative; z-index: 2; width: clamp(180px, 26vw, 320px); height: auto; opacity: 0; animation: acender 1.4s steps(1, end) 0.2s forwards; transition: opacity 0.5s var(--curva), transform 0.8s var(--curva); }
+  .cortina.saiu img { opacity: 0; transform: scale(0.94); }
+  @keyframes acender {
+    0% { opacity: 0.1; filter: none; }
+    8% { opacity: 0.9; filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6)); }
+    12% { opacity: 0.15; filter: none; }
+    18% { opacity: 1; filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.7)) drop-shadow(0 0 22px var(--magenta)); }
+    26% { opacity: 0.35; filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.4)); }
+    32% { opacity: 1; filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 30px var(--magenta)); }
+    60% { opacity: 1; filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 34px var(--magenta)) drop-shadow(0 0 70px rgba(255, 43, 214, 0.6)); }
+    64% { opacity: 0.6; }
+    68%, 100% { opacity: 1; filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 34px var(--magenta)) drop-shadow(0 0 70px rgba(255, 43, 214, 0.6)); }
+  }
+
   /* ---- o neon: luz em camadas, nao cor ---- */
   .neon { color: #FFFFFF; text-shadow: 0 0 6px #FFFFFF, 0 0 18px var(--magenta), 0 0 42px var(--magenta), 0 0 90px rgba(255, 43, 214, 0.6); }
   .neon--verde { text-shadow: 0 0 6px #FFFFFF, 0 0 16px var(--verde), 0 0 40px var(--verde), 0 0 80px rgba(57, 255, 20, 0.5); }
@@ -229,8 +259,9 @@
   .tag { position: absolute; pointer-events: none; opacity: 0.9; filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.35)); }
   .tag--this { right: var(--margem); bottom: clamp(44px, 8vh, 90px); width: clamp(150px, 22vw, 320px); transform: rotate(-6deg); }
 
-  /* o letreiro pisca e estabiliza, como neon ligando */
-  .pisca { animation: ligar 2.6s steps(1, end) 0.4s both; }
+  /* a palavra pisca e estabiliza, como neon ligando -- so DEPOIS que a cortina
+     abriu (body.pronto); sem script ela fica acesa, parada */
+  .pronto .pisca { animation: ligar 2.6s steps(1, end) 0.2s both; }
   @keyframes ligar {
     0% { opacity: 0.15; text-shadow: none; }
     6% { opacity: 1; }
@@ -432,7 +463,8 @@
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .pisca, .objeto, .faixa-trilho { animation: none !important; }
+    .pisca, .objeto, .faixa-trilho, .cortina img { animation: none !important; }
+    .cortina img { opacity: 1; }
     .sobe { opacity: 1; transform: none; transition: none; }
     *, *::before, *::after { transition-duration: 0.01ms !important; }
   }
@@ -463,6 +495,14 @@
 </script>
 </head>
 <body>
+<!-- a cortina: o logo acende e as folhas abrem; so no primeiro quadro -->
+<div class="cortina" id="cortina" aria-hidden="true">
+  <span class="cortina-folha cortina-folha--esq"></span>
+  <span class="cortina-folha cortina-folha--dir"></span>
+  <span class="cortina-fio"></span>
+  <img src="fotos/logo-nola.png" alt="" width="450" height="221" fetchpriority="high">
+</div>
+
 <a class="pular" href="#agenda">Ir para a agenda</a>
 
 <header class="topo" id="topo">
@@ -715,6 +755,24 @@
 (function () {
   'use strict';
   var calmo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 0. A cortina, em tres tempos:
+        ate 1,6s   o logo acende como neon, piscando e estabilizando;
+        1,6s       o fio magenta acende na juncao das folhas;
+        2,0s       as folhas correm para os lados; body.pronto liga a
+                   palavra "psicodelica" da abertura.
+     Com movimento reduzido nao ha espera: a cortina ja nasce aberta. */
+  var cortina = document.getElementById('cortina');
+  function abrirCortina() {
+    if (cortina) cortina.classList.add('saiu');
+    document.body.classList.add('pronto');
+  }
+  if (calmo || !cortina) {
+    abrirCortina();
+  } else {
+    window.setTimeout(function () { cortina.classList.add('abrindo'); }, 1600);
+    window.setTimeout(abrirCortina, 2000);
+  }
 
   /* 1. O cabecalho escurece ao rolar. */
   var topo = document.getElementById('topo');
