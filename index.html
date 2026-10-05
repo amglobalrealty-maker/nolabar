@@ -214,15 +214,52 @@
     overflow: hidden;
     isolation: isolate;
   }
-  .abertura-foto { position: absolute; inset: 0; z-index: -2; }
-  .abertura-foto img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; filter: saturate(1.15) contrast(1.05); }
+  /* o slide: as fotos empilhadas, a que esta no ar aparece e se aproxima
+     devagar; cada uma traz um banho de cor neon (data-tom) */
+  .abertura-slides { position: absolute; inset: 0; z-index: -2; background: var(--preto-2); }
+  .slide-foto { position: absolute; inset: 0; opacity: 0; transition: opacity 1.6s var(--curva); }
+  .slide-foto.ativa { opacity: 1; }
+  .slide-foto picture { display: block; width: 100%; height: 100%; }
+  .slide-foto img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; filter: saturate(1.15) contrast(1.05); transform: scale(1.1); }
+  .slide-foto.ativa img { animation: aproximar 8.4s linear forwards; }
+  @keyframes aproximar { from { transform: scale(1.1); } to { transform: scale(1); } }
+  .slide-foto::after { content: ''; position: absolute; inset: 0; mix-blend-mode: screen; opacity: 0.7; pointer-events: none; }
+  .slide-foto[data-tom="magenta"]::after { background: radial-gradient(ellipse at 20% 85%, rgba(255, 43, 214, 0.5), transparent 58%); }
+  .slide-foto[data-tom="verde"]::after { background: radial-gradient(ellipse at 80% 20%, rgba(57, 255, 20, 0.32), transparent 55%); }
+  .slide-foto[data-tom="ciano"]::after { background: radial-gradient(ellipse at 75% 75%, rgba(0, 229, 255, 0.4), transparent 55%); }
   .abertura-veu {
     position: absolute; inset: 0; z-index: -1;
-    background:
-      linear-gradient(to top, rgba(6, 6, 8, 0.96) 0%, rgba(6, 6, 8, 0.62) 38%, rgba(6, 6, 8, 0.25) 70%, rgba(6, 6, 8, 0.55) 100%),
-      radial-gradient(ellipse at 20% 80%, rgba(255, 43, 214, 0.28), transparent 55%),
-      radial-gradient(ellipse at 85% 20%, rgba(0, 229, 255, 0.18), transparent 50%);
+    background: linear-gradient(to top, rgba(6, 6, 8, 0.96) 0%, rgba(6, 6, 8, 0.62) 38%, rgba(6, 6, 8, 0.22) 70%, rgba(6, 6, 8, 0.55) 100%);
   }
+  /* linhas finas de tela antiga, bem abertas: textura, nao efeito */
+  .abertura-linhas { position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0.35; background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 4px); mix-blend-mode: overlay; }
+
+  /* a barra de troca: quatro pedacos de fio que se enchem no tempo da foto; a
+     legenda fica logo ao lado, a esquerda (no canto direito ela caia em cima
+     da pichacao) */
+  .abertura-controle { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-start; gap: 10px 24px; margin-top: clamp(22px, 3.4vh, 36px); }
+  .marcadores { display: flex; align-items: center; gap: 8px; }
+  .marcador { position: relative; display: block; width: clamp(44px, 6vw, 72px); height: 44px; padding: 0; background: none; border: 0; cursor: pointer; }
+  .marcador::before, .marcador::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 3px; margin-top: -1.5px; }
+  .marcador::before { background: rgba(244, 241, 248, 0.28); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); }
+  .marcador::after { background: var(--verde); box-shadow: 0 0 10px rgba(57, 255, 20, 0.8); transform: scaleX(0); transform-origin: left; transition: transform 0.5s var(--curva); }
+  .marcador.andada::after { transform: scaleX(1); }
+  .marcador.ativo::after { animation: encher 8s linear forwards; }
+  .marcador:focus-visible { outline: 1px solid var(--verde); outline-offset: 4px; }
+  @keyframes encher { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .slide-legenda { font-family: var(--pixel); font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ciano); text-shadow: 0 0 10px rgba(0, 229, 255, 0.7); transition: opacity 0.4s var(--curva); }
+  .slide-legenda.trocando { opacity: 0; }
+
+  /* o selo que gira, no canto de baixo a direita */
+  .selo { position: absolute; right: clamp(24px, 6vw, 110px); bottom: clamp(120px, 20vh, 220px); width: clamp(120px, 11vw, 160px); aspect-ratio: 1; z-index: 1; pointer-events: none; }
+  .selo svg { width: 100%; height: 100%; animation: girar 26s linear infinite; }
+  .selo text { font-family: var(--pixel); font-size: 12.5px; letter-spacing: 0.14em; text-transform: uppercase; fill: var(--verde); }
+  .selo-ponto { position: absolute; left: 50%; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: var(--magenta); box-shadow: 0 0 14px var(--magenta), 0 0 34px rgba(255, 43, 214, 0.6); }
+  @keyframes girar { to { transform: rotate(360deg); } }
+
+  /* a palavra da um lampejo a cada troca de foto */
+  .lampejo { animation: lampejar 0.55s steps(1, end); }
+  @keyframes lampejar { 0% { opacity: 1; } 20% { opacity: 0.25; } 35% { opacity: 1; } 55% { opacity: 0.4; } 70%, 100% { opacity: 1; } }
   .abertura-texto { position: relative; width: 100%; max-width: 1200px; }
   .abertura-sobre { font-family: var(--pixel); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ciano); text-shadow: 0 0 10px rgba(0, 229, 255, 0.7); margin-bottom: 18px; }
   /* O TITULO E A FRASE DA CASA, nao o nome: ela nao quis o NOLA gigante (o
@@ -443,9 +480,9 @@
     .festa { grid-template-columns: auto 1fr; }
     .festa-acao { grid-column: 1 / -1; grid-auto-flow: column; justify-content: start; }
     .festa-acao .botao { min-width: 160px; }
-    /* no celular a abertura fica so com a foto e o texto: a pichacao e o
-       cubo encostavam no menu, e o globo cobria o texto */
-    .tag--this, .objeto--cubo { display: none; }
+    /* no celular a abertura fica so com a foto e o texto: a pichacao, o cubo
+       e o selo encostavam no menu ou cobriam o texto, e o globo cobria o texto */
+    .tag--this, .objeto--cubo, .selo { display: none; }
     .objeto--globo { top: 118px; right: -14vw; width: 46vw; opacity: 0.7; }
     .nola::before { opacity: 0.12; }
     .tag--bar { right: 0; top: -10%; width: 40%; }
@@ -463,8 +500,10 @@
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .pisca, .objeto, .faixa-trilho, .cortina img { animation: none !important; }
+    .pisca, .objeto, .faixa-trilho, .cortina img, .selo svg, .slide-foto img, .lampejo { animation: none !important; }
     .cortina img { opacity: 1; }
+    .slide-foto img { transform: none; }
+    .marcador.ativo::after { animation: none; transform: scaleX(1); }
     .sobe { opacity: 1; transform: none; transition: none; }
     *, *::before, *::after { transition-duration: 0.01ms !important; }
   }
@@ -524,12 +563,46 @@
 <main>
   <!-- ======================================================== abertura == -->
   <section class="abertura" id="inicio">
-    <!-- a pista atras: deitada no computador, em pe no celular -->
-    <picture class="abertura-foto">
-      <source media="(max-width: 700px)" srcset="fotos/abertura-cel.webp" width="933" height="1400">
-      <img src="fotos/abertura.webp" alt="" width="2000" height="1333" fetchpriority="high" decoding="async">
-    </picture>
+    <!-- O SLIDE: quatro fotos em rodizio, cada uma com um banho de cor neon
+         (data-tom) e aproximacao lenta enquanto esta no ar. Deitadas no
+         computador, em pe no celular. A legenda de cada uma fala da casa, nao
+         da foto, para servir nas duas versoes. -->
+    <div class="abertura-slides" id="slidesAbertura" aria-hidden="true">
+      <div class="slide-foto ativa" data-tom="magenta" data-legenda="Sexta é O Baile, open bar">
+        <picture>
+          <source media="(max-width: 700px)" srcset="fotos/abertura-cel.webp" width="933" height="1400">
+          <img src="fotos/abertura.webp" alt="" width="2000" height="1333" fetchpriority="high" decoding="async">
+        </picture>
+      </div>
+      <div class="slide-foto" data-tom="verde" data-legenda="Sábado é T.I.L.T.">
+        <picture>
+          <source media="(max-width: 700px)" srcset="fotos/noite-02.webp" width="895" height="1400">
+          <img src="fotos/noite-03.webp" alt="" width="1600" height="1067" decoding="async">
+        </picture>
+      </div>
+      <div class="slide-foto" data-tom="ciano" data-legenda="Duas pistas, uma noite inteira">
+        <picture>
+          <source media="(max-width: 700px)" srcset="fotos/noite-01.webp" width="933" height="1400">
+          <img src="fotos/noite-05.webp" alt="" width="1600" height="1067" decoding="async">
+        </picture>
+      </div>
+      <div class="slide-foto" data-tom="magenta" data-legenda="Vila Madalena, desde 2013">
+        <picture>
+          <source media="(max-width: 700px)" srcset="fotos/noite-06.webp" width="933" height="1400">
+          <img src="fotos/fachada-noite.webp" alt="" width="1600" height="1066" decoding="async">
+        </picture>
+      </div>
+    </div>
     <div class="abertura-veu" aria-hidden="true"></div>
+    <div class="abertura-linhas" aria-hidden="true"></div>
+    <!-- o selo que gira: so no computador -->
+    <div class="selo" aria-hidden="true">
+      <svg viewBox="0 0 160 160">
+        <defs><path id="seloCurva" d="M80,80 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs>
+        <text><textPath href="#seloCurva">Lista VIP · Sex e Sáb · 22h às 5h · Vila Madalena · </textPath></text>
+      </svg>
+      <span class="selo-ponto"></span>
+    </div>
     <img class="objeto objeto--globo" src="fotos/globo-anel.webp" alt="" width="900" height="875" aria-hidden="true" decoding="async">
     <img class="objeto objeto--cubo" src="fotos/cubo.webp" alt="" width="900" height="900" aria-hidden="true" decoding="async">
     <img class="tag tag--this" src="fotos/tag-this-is-nola.webp" alt="" width="811" height="191" aria-hidden="true" decoding="async">
@@ -542,6 +615,16 @@
       <div class="abertura-acoes">
         <a class="botao" href="https://wa.me/message/D5C34BVV3MNXF1" target="_blank" rel="noopener">Entrar na lista VIP</a>
         <a class="botao botao--magenta" href="#agenda">Ver a agenda</a>
+      </div>
+      <!-- a barra que troca a foto e mostra o tempo dela, mais a legenda -->
+      <div class="abertura-controle">
+        <div class="marcadores" id="marcadores">
+          <button type="button" class="marcador ativo" data-slide="0" aria-label="Ver a primeira foto"></button>
+          <button type="button" class="marcador" data-slide="1" aria-label="Ver a segunda foto"></button>
+          <button type="button" class="marcador" data-slide="2" aria-label="Ver a terceira foto"></button>
+          <button type="button" class="marcador" data-slide="3" aria-label="Ver a quarta foto"></button>
+        </div>
+        <p class="slide-legenda" id="slideLegenda" aria-live="polite">Sexta é O Baile, open bar</p>
       </div>
     </div>
   </section>
@@ -772,6 +855,53 @@
   } else {
     window.setTimeout(function () { cortina.classList.add('abrindo'); }, 1600);
     window.setTimeout(abrirCortina, 2000);
+  }
+
+  /* 0b. O slide da abertura: a foto troca a cada 8s, a barra se enche no
+     mesmo tempo, a legenda troca junto e a palavra "psicodelica" da um
+     lampejo. Clicar num pedaco da barra vai para aquela foto. Com movimento
+     reduzido fica so a primeira foto, parada; a aba escondida pausa. */
+  var slides = document.querySelectorAll('.slide-foto');
+  var marcadores = document.getElementById('marcadores');
+  var legenda = document.getElementById('slideLegenda');
+  var palavra = document.querySelector('.abertura-titulo em');
+  if (slides.length && marcadores) {
+    var botoesSlide = marcadores.querySelectorAll('.marcador');
+    var atual = 0;
+    var relogio = null;
+    var DURACAO = 8000;
+
+    function mostrarSlide(i, comLampejo) {
+      atual = (i + slides.length) % slides.length;
+      Array.prototype.forEach.call(slides, function (s, k) { s.classList.toggle('ativa', k === atual); });
+      Array.prototype.forEach.call(botoesSlide, function (b, k) {
+        b.classList.remove('ativo');
+        b.classList.toggle('andada', k < atual);
+        if (k === atual) { void b.offsetWidth; b.classList.add('ativo'); }
+      });
+      if (legenda) {
+        var texto = slides[atual].getAttribute('data-legenda') || '';
+        legenda.classList.add('trocando');
+        window.setTimeout(function () { legenda.textContent = texto; legenda.classList.remove('trocando'); }, 400);
+      }
+      if (comLampejo && palavra && !calmo) {
+        palavra.classList.remove('lampejo'); void palavra.offsetWidth; palavra.classList.add('lampejo');
+      }
+    }
+    function agendarSlide() {
+      window.clearInterval(relogio);
+      relogio = window.setInterval(function () { mostrarSlide(atual + 1, true); }, DURACAO);
+    }
+    marcadores.addEventListener('click', function (ev) {
+      var b = ev.target.closest('.marcador');
+      if (!b) return;
+      mostrarSlide(parseInt(b.getAttribute('data-slide'), 10), false);
+      if (!calmo) agendarSlide();
+    });
+    if (!calmo) {
+      agendarSlide();
+      document.addEventListener('visibilitychange', function () { if (document.hidden) window.clearInterval(relogio); else agendarSlide(); });
+    }
   }
 
   /* 1. O cabecalho escurece ao rolar. */

@@ -36,7 +36,7 @@ O cabecalho do proprio `agenda.js` explica o formato. Nao e preciso tocar no
 | Secao | O que faz |
 |---|---|
 | Cortina | Ao abrir o site, duas folhas pretas cobrem tudo e o logo do Nola acende no meio como um neon ligando; um fio magenta acende na juncao e as folhas correm para os lados (2 segundos). Pedido dela, "igual o da AMGlobal mas do Nola". Com movimento reduzido, nasce aberta |
-| Abertura | A pista atras (deitada no computador, em pe no celular), a frase da casa como titulo ("A balada mais psicodelica de Sao Paulo", com "psicodelica" acendendo em neon verde), os dias e dois botoes: lista VIP (WhatsApp) e agenda. Ela recusou um NOLA gigante em neon: o nome ja esta no logo do cabecalho |
+| Abertura | Um SLIDE de quatro fotos da casa em rodizio (8s cada, aproximacao lenta, um banho de cor neon diferente em cada uma, linhas finas de tela antiga por cima), a frase da casa como titulo ("A balada mais psicodelica de Sao Paulo", com "psicodelica" acendendo em neon verde e dando um lampejo a cada troca), os dias, dois botoes (lista VIP no WhatsApp e agenda), a barra de quatro tracos que troca a foto e mostra o tempo dela, uma legenda que muda com a foto e, no computador, um selo redondo girando ("Lista VIP, Sex e Sab, 22h as 5h"). Deitadas no computador, em pe no celular. Ela recusou um NOLA gigante em neon: o nome ja esta no logo do cabecalho |
 | Faixa | Letreiro rolante com o que tem na casa |
 | 01 Agenda | Um cartaz por festa, a partir de `agenda.js` |
 | 02 O Nola | A historia em tres tempos (2013, 2023, hoje) e a fachada antiga |
