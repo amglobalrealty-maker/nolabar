@@ -35,11 +35,11 @@ O cabecalho do proprio `agenda.js` explica o formato. Nao e preciso tocar no
 
 | Secao | O que faz |
 |---|---|
-| Abertura | A pista atras (deitada no computador, em pe no celular), NOLA gigante em neon que pisca e estabiliza, a frase, os dias e dois botoes: lista VIP (WhatsApp) e agenda |
+| Abertura | A pista atras (deitada no computador, em pe no celular), a frase da casa como titulo ("A balada mais psicodelica de Sao Paulo", com "psicodelica" acendendo em neon verde), os dias e dois botoes: lista VIP (WhatsApp) e agenda. Ela recusou um NOLA gigante em neon: o nome ja esta no logo do cabecalho |
 | Faixa | Letreiro rolante com o que tem na casa |
 | 01 Agenda | Um cartaz por festa, a partir de `agenda.js` |
 | 02 O Nola | A historia em tres tempos (2013, 2023, hoje) e a fachada antiga |
-| 03 Reservas | Aniversario e camarote, cada um com WhatsApp e mensagem pronta |
+| 03 Aniversario e lista VIP | Aniversario com WhatsApp e mensagem pronta, e a lista VIP. Sem camarote: a casa nao tem mesa para reservar (ela avisou em 05/10/2026) |
 | 04 Fotos | Mural de doze fotos das noites, abrindo em tela cheia, e link do Instagram |
 | 05 Drinks | Texto da casa e um ESBOCO de lista (ver pendencias) |
 | 06 Como chegar | Endereco, dias e horario, contato, Waze e Google Maps, a fachada a noite |
@@ -56,12 +56,15 @@ O cabecalho do proprio `agenda.js` explica o formato. Nao e preciso tocar no
 - **Grao** por cima de tudo (SVG de ruido em `mix-blend-mode: soft-light`,
   7% de opacidade) e as pichacoes do Nola ("This is Nola", "nola bar") como
   carimbos tortos.
-- **Movimento com proposito**: o letreiro NOLA pisca e estabiliza como neon
-  ligando (uma vez so), os objetos 3D do Nola flutuam devagar, a faixa roda, os
-  blocos sobem ao entrar na tela. Com `prefers-reduced-motion`, nada se mexe.
+- **Movimento com proposito**: a palavra "psicodelica" pisca e estabiliza como
+  neon ligando (uma vez so), os objetos 3D do Nola flutuam devagar, a faixa
+  roda, os blocos sobem ao entrar na tela. Com `prefers-reduced-motion`, nada
+  se mexe.
 - **Celular primeiro**: cada bloco foi desenhado em 390px e aberto depois para
   o computador. Menu em tela cheia no celular; cabecalho transparente sobre a
-  foto e escuro ao rolar.
+  foto e escuro ao rolar. Nada encosta no cabecalho: a abertura tem 120px de
+  respiro em cima, o globo comeca abaixo de 220px e, no celular, a pichacao e
+  o cubo nem aparecem (encostavam no menu).
 
 ## Fotos: material provisorio
 

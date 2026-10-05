@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nola Bar | Balada em Vila Madalena, São Paulo</title>
-<meta name="description" content="Nola Bar: a balada mais psicodélica de São Paulo. Trap, funk e rap em duas pistas na Vila Madalena, desde 2013. Sextas, sábados e vésperas de feriado, das 22h às 5h. Lista VIP, ingressos, aniversário e camarote.">
+<meta name="description" content="Nola Bar: a balada mais psicodélica de São Paulo. Trap, funk e rap em duas pistas na Vila Madalena, desde 2013. Sextas, sábados e vésperas de feriado, das 22h às 5h. Lista VIP, ingressos e aniversário.">
 <meta name="theme-color" content="#060608">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
@@ -178,7 +178,9 @@
     min-height: 100svh;
     display: flex;
     align-items: flex-end;
-    padding: 0 var(--margem) clamp(40px, 7vh, 80px);
+    /* o respiro de cima garante que nada do conteudo entra embaixo do
+       cabecalho fixo, nem em telefone baixo */
+    padding: 120px var(--margem) clamp(40px, 7vh, 80px);
     overflow: hidden;
     isolation: isolate;
   }
@@ -193,22 +195,22 @@
   }
   .abertura-texto { position: relative; width: 100%; max-width: 1200px; }
   .abertura-sobre { font-family: var(--pixel); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ciano); text-shadow: 0 0 10px rgba(0, 229, 255, 0.7); margin-bottom: 18px; }
+  /* O TITULO E A FRASE DA CASA, nao o nome: ela nao quis o NOLA gigante (o
+     logo ja esta no cabecalho). "Psicodelica" acende em verde, como neon. */
   .abertura-titulo {
-    font-size: clamp(132px, 36vw, 440px);
-    line-height: 0.82;
-    letter-spacing: -0.015em;
-    margin-left: -0.03em;
+    font-size: clamp(46px, 7.6vw, 112px);
+    line-height: 0.92;
+    letter-spacing: 0.005em;
+    max-width: 12ch;
   }
-  .abertura-titulo .neon { display: inline-block; }
+  .abertura-titulo em { font-style: normal; color: var(--verde); text-shadow: 0 0 10px #FFFFFF, 0 0 24px var(--verde), 0 0 60px rgba(57, 255, 20, 0.55); }
   .abertura-frase {
-    margin-top: clamp(18px, 3vh, 30px);
-    font-family: var(--display);
-    font-size: clamp(26px, 4.6vw, 54px);
-    line-height: 1;
-    text-transform: uppercase;
-    max-width: 16ch;
+    margin-top: clamp(16px, 2.6vh, 26px);
+    font-size: clamp(16px, 1.3vw, 20px);
+    color: var(--cinza);
+    max-width: 44ch;
   }
-  .abertura-frase em { font-style: normal; color: var(--verde); text-shadow: 0 0 14px rgba(57, 255, 20, 0.75); }
+  .abertura-frase strong { color: var(--branco); font-weight: 500; }
   .abertura-dias { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: clamp(16px, 2.6vh, 26px); font-family: var(--pixel); font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--cinza); }
   /* o ponto fica DEPOIS de cada item (menos o ultimo): quando a linha quebra,
      ele sobra no fim da linha de cima, e nao solto no comeco da de baixo */
@@ -217,8 +219,10 @@
 
   /* os objetos 3D do Nola, flutuando devagar */
   .objeto { position: absolute; z-index: 0; pointer-events: none; filter: drop-shadow(0 0 24px rgba(255, 43, 214, 0.35)); }
-  .objeto--globo { right: clamp(-40px, -3vw, 10px); top: clamp(84px, 12vh, 140px); width: clamp(150px, 26vw, 360px); animation: flutuar 9s ease-in-out infinite; }
-  .objeto--cubo { left: clamp(-30px, -2vw, 20px); top: 46%; width: clamp(96px, 16vw, 230px); animation: flutuar 11s ease-in-out infinite reverse; }
+  /* longe do cabecalho: o globo comeca abaixo de 220px e o cubo fica no meio
+     da altura; antes o globo encostava no botao Lista VIP do menu */
+  .objeto--globo { right: clamp(-40px, -3vw, 10px); top: clamp(220px, 30vh, 320px); width: clamp(150px, 24vw, 340px); animation: flutuar 9s ease-in-out infinite; }
+  .objeto--cubo { left: clamp(-30px, -2vw, 20px); top: 52%; width: clamp(96px, 14vw, 200px); animation: flutuar 11s ease-in-out infinite reverse; }
   @keyframes flutuar { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-22px) rotate(4deg); } }
 
   /* a pichacao: um carimbo torto no canto */
@@ -321,7 +325,6 @@
   .cartao h3 { font-size: clamp(34px, 5vw, 56px); }
   .cartao p { color: var(--cinza); max-width: 46ch; }
   .cartao .botao { justify-self: start; margin-top: 8px; position: relative; z-index: 1; }
-  .reservas-nota { margin-top: 22px; color: var(--cinza); font-size: 14px; max-width: 60ch; }
 
   /* ---- fotos: mural com luz ---- */
   .fotos { background: var(--preto-2); }
@@ -409,16 +412,17 @@
     .festa { grid-template-columns: auto 1fr; }
     .festa-acao { grid-column: 1 / -1; grid-auto-flow: column; justify-content: start; }
     .festa-acao .botao { min-width: 160px; }
-    .tag--this { bottom: auto; top: clamp(90px, 14vh, 150px); right: 8px; width: clamp(130px, 40vw, 200px); }
-    .objeto--globo { top: auto; bottom: 46%; right: -10vw; width: 44vw; opacity: 0.85; }
-    .objeto--cubo { top: 22%; left: -8vw; width: 30vw; opacity: 0.8; }
+    /* no celular a abertura fica so com a foto e o texto: a pichacao e o
+       cubo encostavam no menu, e o globo cobria o texto */
+    .tag--this, .objeto--cubo { display: none; }
+    .objeto--globo { top: 118px; right: -14vw; width: 46vw; opacity: 0.7; }
     .nola::before { opacity: 0.12; }
     .tag--bar { right: 0; top: -10%; width: 40%; }
   }
   @media (max-width: 520px) {
     body { font-size: 16px; }
     .abertura { padding-bottom: 36px; }
-    .abertura-titulo { font-size: clamp(120px, 40vw, 200px); }
+    .abertura-titulo { font-size: clamp(44px, 12.6vw, 64px); max-width: none; }
     .abertura-acoes .botao { flex: 1 1 100%; }
     .festa-dia { font-size: 52px; }
     .festa-acao { grid-auto-flow: row; }
@@ -468,7 +472,7 @@
   <nav class="menu" id="menu" aria-label="Navegação principal">
     <a href="#agenda">Agenda</a>
     <a href="#nola">O Nola</a>
-    <a href="#reservas">Reservas</a>
+    <a href="#aniversario">Aniversário</a>
     <a href="#fotos">Fotos</a>
     <a href="#drinks">Drinks</a>
     <a href="#chegar">Como chegar</a>
@@ -492,8 +496,8 @@
 
     <div class="abertura-texto">
       <p class="abertura-sobre">Vila Madalena · SP · desde 2013</p>
-      <h1 class="abertura-titulo"><span class="neon pisca">Nola</span></h1>
-      <p class="abertura-frase">A balada mais <em>psicodélica</em> de São Paulo.</p>
+      <h1 class="abertura-titulo">A balada mais <em class="pisca">psicodélica</em> de São Paulo</h1>
+      <p class="abertura-frase"><strong>Trap, funk e rap em duas pistas</strong> que viram a madrugada. Open bar nas sextas.</p>
       <p class="abertura-dias"><span>Sexta</span><span>Sábado</span><span>Vésperas de feriado</span><span>22h às 5h</span></p>
       <div class="abertura-acoes">
         <a class="botao" href="https://wa.me/message/D5C34BVV3MNXF1" target="_blank" rel="noopener">Entrar na lista VIP</a>
@@ -567,12 +571,13 @@
     <p class="nola-lema sobe">Moderno, psicodélico <em>e atual.</em></p>
   </section>
 
-  <!-- ======================================================== reservas == -->
-  <section class="reservas" id="reservas">
+  <!-- ============================================== aniversario e lista VIP == -->
+  <!-- Sem camarote: a casa nao tem mesa para reservar (ela avisou em 05/10). -->
+  <section class="reservas" id="aniversario">
     <div class="cabeca sobe">
-      <span class="rotulo">03 — Reservas</span>
+      <span class="rotulo">03 — Aniversário e lista VIP</span>
       <h2>Seu rolê,<br>do seu jeito</h2>
-      <p>Aniversário com a galera ou camarote com a mesa garantida: tudo pelo WhatsApp, com resposta rápida.</p>
+      <p>Comemore o aniversário na pista com a sua turma, ou entre de vez na lista do Nola. Tudo pelo WhatsApp, com resposta rápida.</p>
     </div>
     <div class="reservas-grade">
       <article class="cartao sobe">
@@ -582,13 +587,12 @@
         <a class="botao botao--magenta" href="https://wa.me/5511987590317?text=Oi%2C%20Nola!%20Quero%20comemorar%20meu%20anivers%C3%A1rio%20a%C3%AD.%20Data%3A%20%0AQuantas%20pessoas%3A%20" target="_blank" rel="noopener">Reservar aniversário</a>
       </article>
       <article class="cartao cartao--verde sobe">
-        <span class="rotulo">Camarote</span>
-        <h3>Mesa garantida</h3>
-        <p>Lugar reservado, serviço na mesa e a pista a dois passos. Para grupos que querem a noite inteira sem fila e sem espera.</p>
-        <a class="botao" href="https://wa.me/5511987590317?text=Oi%2C%20Nola!%20Quero%20reservar%20um%20camarote.%20Data%3A%20%0AQuantas%20pessoas%3A%20" target="_blank" rel="noopener">Reservar camarote</a>
+        <span class="rotulo">Lista VIP</span>
+        <h3>VIP para sempre</h3>
+        <p>Manda um oi no WhatsApp e entra na nossa lista: você recebe a agenda da semana e os mimos antes de todo mundo, e o seu nome já fica na porta.</p>
+        <a class="botao" href="https://wa.me/message/D5C34BVV3MNXF1" target="_blank" rel="noopener">Entrar na lista VIP</a>
       </article>
     </div>
-    <p class="reservas-nota sobe">Quer ser VIP para sempre? Manda um oi no <a href="https://wa.me/message/D5C34BVV3MNXF1" target="_blank" rel="noopener">WhatsApp</a> e entra na nossa lista: você recebe a agenda e os mimos antes de todo mundo.</p>
   </section>
 
   <!-- =========================================================== fotos == -->
