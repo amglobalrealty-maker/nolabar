@@ -252,7 +252,9 @@
   /* ---- secoes ---- */
   section { position: relative; padding: var(--secao) var(--margem); }
   .cabeca { max-width: 980px; margin-bottom: clamp(36px, 6vh, 64px); }
-  .cabeca .rotulo { margin-bottom: 16px; }
+  /* 30px, e nao 16: o til e o circunflexo das caixas-altas em Anton sobem
+     acima da altura da letra e encostavam no rotulo */
+  .cabeca .rotulo { margin-bottom: 30px; }
   .cabeca p { margin-top: 18px; max-width: 58ch; color: var(--cinza); font-size: clamp(16px, 1.2vw, 19px); }
   .cabeca p strong { color: var(--branco); font-weight: 500; }
   .sobe { opacity: 0; transform: translateY(26px); transition: opacity 0.9s var(--curva), transform 0.9s var(--curva); }
@@ -342,6 +344,7 @@
   /* ---- drinks ---- */
   .drinks-grade { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
   .drinks-foto img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border: 1px solid var(--linha); filter: saturate(1.15); }
+  .drinks-texto .rotulo { display: block; margin-bottom: 30px; }
   .drinks-texto p { color: var(--cinza); max-width: 50ch; }
   .drinks-texto p strong { color: var(--branco); font-weight: 500; }
   .drinks-lista { list-style: none; margin: 26px 0 0; padding: 0; display: grid; gap: 0; }
